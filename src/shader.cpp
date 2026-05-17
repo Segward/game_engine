@@ -1,43 +1,52 @@
 #include <io.hpp>
 #include <shader.hpp>
 
-static std::string get_info_log(GLuint object, GLenum kind) {
-  GLint length = 0;
-  if (kind == GL_SHADER) {
-    glGetShaderiv(object, GL_INFO_LOG_LENGTH, &length);
-  } else {
-    glGetProgramiv(object, GL_INFO_LOG_LENGTH, &length);
-  }
-  if (length <= 0) {
-    return {};
-  }
+namespace {
+  std::string get_info_log(GLuint object, GLenum kind) {
+    GLint length = 0;
+    if (length <= 0) {
+      return {};
+    }
 
-  std::string log(static_cast<size_t>(length - 1), '\0');
-  if (kind == GL_SHADER) {
-    glGetShaderInfoLog(object, length, nullptr, log.data());
-  } else {
-    glGetProgramInfoLog(object, length, nullptr, log.data());
-  }
-  return log;
-}
+    if (kind == GL_SHADER) {
+      glGetShaderiv(object, GL_INFO_LOG_LENGTH, &length);
+    } else {
+      glGetProgramiv(object, GL_INFO_LOG_LENGTH, &length);
+    }
 
-static GLuint compile_stage(GLenum stage, const char* path) {
-  std::string source = IO::read(path);
-  const char* source_ptr = source.c_str();
+    std::string log(static_cast<size_t>(length - 1), '\0');
+    if (kind == GL_SHADER) {
+      glGetShaderInfoLog(object, length, nullptr, log.data());
+    } else {
+      glGetProgramInfoLog(object, length, nullptr, log.data());
+    }
 
-  GLuint shader = glCreateShader(stage);
-  glShaderSource(shader, 1, &source_ptr, nullptr);
-  glCompileShader(shader);
-
-  GLint status = GL_FALSE;
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-  if (status != GL_TRUE) {
-    std::string log = get_info_log(shader, GL_SHADER);
-    glDeleteShader(shader);
-    throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + log);
+    return log;
   }
 
-  return shader;
+  GLuint compile_stage(GLenum stage, const char* path) {
+    std::string source = IO::read(path);
+    const char* source_ptr = source.c_str();
+    const GLint source_len = static_cast<GLint>(source.size());
+
+    GLuint shader = glCreateShader(stage);
+    if (!shader) {
+      throw std::runtime_error(std::string("compile_stage failed to create shader for ") + path);
+    }
+
+    glShaderSource(shader, 1, &source_ptr, &source_len);
+    glCompileShader(shader);
+
+    GLint status = GL_FALSE;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+    if (status != GL_TRUE) {
+      std::string log = get_info_log(shader, GL_SHADER);
+      glDeleteShader(shader);
+      throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + log);
+    }
+
+    return shader;
+  }
 }
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) {
@@ -51,6 +60,12 @@ Shader::Shader(const char* vertex_path, const char* fragment_path) {
   }
 
   _program = glCreateProgram();
+  if (!_program) {
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
+    throw std::runtime_error("Shader failed to create program");
+  }
+
   glAttachShader(_program, vertex);
   glAttachShader(_program, fragment);
   glLinkProgram(_program);

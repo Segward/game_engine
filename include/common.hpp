@@ -13,10 +13,12 @@
 #include <sstream>
 
 #include <exception>
+#include <filesystem>
 #include <functional>
 #include <memory>
 #include <optional>
 #include <stdexcept>
+#include <system_error>
 #include <utility>
 
 #include <cmath>
