@@ -14,12 +14,11 @@ class Window {
     void set_should_close(bool value);
     bool should_close() const;
     void swap_buffers();
-    void poll_events();
+    static void poll_events();
     bool key_pressed(int key) const;
 
     int width() const { return _width; }
     int height() const { return _height; }
-    GLFWwindow *handle() const { return _handle; }
 
   private:
     GLFWwindow* _handle{nullptr};

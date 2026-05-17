@@ -1,13 +1,9 @@
 #include <global.hpp>
-#include <init.hpp>
 
 int main() {
   try {
-    Init::glfw();
+    Window& window = Global::instance().window();
 
-    Window& window = Global::instance().window;
-
-    Init::glad();
     while (!window.should_close()) {
       window.poll_events();
 
@@ -20,10 +16,8 @@ int main() {
     }
   } catch (const std::exception& error) {
     std::cerr << error.what() << '\n';
-    glfwTerminate();
     return EXIT_FAILURE;
   }
 
-  glfwTerminate();
   return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-#include "window.hpp"
+#include <window.hpp>
 
 Window::Window(int width, int height, const char *title) {
   _handle = glfwCreateWindow(width, height, title, nullptr, nullptr);
@@ -9,8 +9,7 @@ Window::Window(int width, int height, const char *title) {
   glfwMakeContextCurrent(_handle);
   glfwSwapInterval(0);
 
-  _width = width;
-  _height = height;
+  glfwGetFramebufferSize(_handle, &_width, &_height);
 
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, framebuffer_size_callback);
@@ -46,6 +45,9 @@ bool Window::key_pressed(int key) const {
 
 void Window::framebuffer_size_callback(GLFWwindow* handle, int width, int height) {
   Window* self = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+  if (!self) {
+    return;
+  }
 
   self->_width = width;
   self->_height = height;

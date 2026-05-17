@@ -1,4 +1,3 @@
-#include <global.hpp>
 #include <init.hpp>
 
 void Init::glfw() {
