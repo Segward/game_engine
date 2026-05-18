@@ -4,14 +4,14 @@
 namespace {
   std::string get_info_log(GLuint object, GLenum kind) {
     GLint length = 0;
-    if (length <= 0) {
-      return {};
-    }
-
     if (kind == GL_SHADER) {
       glGetShaderiv(object, GL_INFO_LOG_LENGTH, &length);
     } else {
       glGetProgramiv(object, GL_INFO_LOG_LENGTH, &length);
+    }
+
+    if (length <= 0) {
+      return {};
     }
 
     std::string log(static_cast<size_t>(length - 1), '\0');
