@@ -8,9 +8,9 @@ Global& Global::instance() {
 
 Global::Global() {
   try {
-    Init::glfw();
+    init::glfw();
     _window = std::make_unique<Window>(1280, 720, "game engine");
-    Init::glad();
+    init::glad();
   } catch (...) {
     _window.reset();
     glfwTerminate();

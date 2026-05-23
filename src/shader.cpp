@@ -3,7 +3,7 @@
 
 namespace {
   std::string get_info_log(GLuint object, GLenum kind) {
-    auto getiv  = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+    auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
     auto getlog = (kind == GL_SHADER) ? glGetShaderInfoLog : glGetProgramInfoLog;
 
     GLint length = 0;

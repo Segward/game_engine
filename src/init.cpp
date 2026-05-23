@@ -1,6 +1,6 @@
 #include <init.hpp>
 
-void Init::glfw() {
+void init::glfw() {
   if (!glfwInit()) {
     throw std::runtime_error("glfwInit failed");
   }
@@ -13,7 +13,7 @@ void Init::glfw() {
 #endif
 }
 
-void Init::glad() {
+void init::glad() {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     throw std::runtime_error("gladLoadGLLoader failed");
   }
