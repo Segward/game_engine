@@ -3,29 +3,33 @@
 
 namespace {
   std::string get_info_log(GLuint object, GLenum kind) {
-    GLint length = 0;
-    if (kind == GL_SHADER) {
-      glGetShaderiv(object, GL_INFO_LOG_LENGTH, &length);
-    } else {
-      glGetProgramiv(object, GL_INFO_LOG_LENGTH, &length);
-    }
+    auto getiv  = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+    auto getlog = (kind == GL_SHADER) ? glGetShaderInfoLog : glGetProgramInfoLog;
 
+    GLint length = 0;
+    getiv(object, GL_INFO_LOG_LENGTH, &length);
     if (length <= 0) {
       return {};
     }
 
     std::string log(static_cast<size_t>(length - 1), '\0');
-    if (kind == GL_SHADER) {
-      glGetShaderInfoLog(object, length, nullptr, log.data());
-    } else {
-      glGetProgramInfoLog(object, length, nullptr, log.data());
-    }
-
+    getlog(object, length, nullptr, log.data());
     return log;
   }
 
+  std::optional<std::string> check_status(GLuint object, GLenum status_pname, GLenum kind) {
+    auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+    GLint status = GL_FALSE;
+    getiv(object, status_pname, &status);
+    if (status == GL_TRUE) {
+      return std::nullopt;
+    }
+
+    return get_info_log(object, kind);
+  }
+
   GLuint compile_stage(GLenum stage, const char* path) {
-    std::string source = IO::read(path);
+    std::string source = io::read(path);
     const char* source_ptr = source.c_str();
     const GLint source_len = static_cast<GLint>(source.size());
 
@@ -37,12 +41,9 @@ namespace {
     glShaderSource(shader, 1, &source_ptr, &source_len);
     glCompileShader(shader);
 
-    GLint status = GL_FALSE;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    if (status != GL_TRUE) {
-      std::string log = get_info_log(shader, GL_SHADER);
+    if (auto log = check_status(shader, GL_COMPILE_STATUS, GL_SHADER)) {
       glDeleteShader(shader);
-      throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + log);
+      throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + *log);
     }
 
     return shader;
@@ -73,13 +74,10 @@ Shader::Shader(const char* vertex_path, const char* fragment_path) {
   glDeleteShader(vertex);
   glDeleteShader(fragment);
 
-  GLint status = GL_FALSE;
-  glGetProgramiv(_program, GL_LINK_STATUS, &status);
-  if (status != GL_TRUE) {
-    std::string log = get_info_log(_program, GL_PROGRAM);
+  if (auto log = check_status(_program, GL_LINK_STATUS, GL_PROGRAM)) {
     glDeleteProgram(_program);
     _program = 0;
-    throw std::runtime_error("Shader failed to link program: " + log);
+    throw std::runtime_error("Shader failed to link program: " + *log);
   }
 }
 
@@ -95,14 +93,18 @@ void Shader::use_program() {
   glUseProgram(_program);
 }
 
-void Shader::set_uniform(const char* name, float value) {
-  glProgramUniform1f(_program, glGetUniformLocation(_program, name), value);
+GLint Shader::get_uniform_location(const char* name) const {
+  return glGetUniformLocation(_program, name);
 }
 
-void Shader::set_uniform(const char* name, const glm::vec2& value) {
-  glProgramUniform2fv(_program, glGetUniformLocation(_program, name), 1, glm::value_ptr(value));
+void Shader::set_uniform(GLint location, float value) {
+  glProgramUniform1f(_program, location, value);
 }
 
-void Shader::set_uniform(const char* name, const glm::mat4& value) {
-  glProgramUniformMatrix4fv(_program, glGetUniformLocation(_program, name), 1, GL_FALSE, glm::value_ptr(value));
+void Shader::set_uniform(GLint location, const glm::vec2& value) {
+  glProgramUniform2fv(_program, location, 1, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(GLint location, const glm::mat4& value) {
+  glProgramUniformMatrix4fv(_program, location, 1, GL_FALSE, glm::value_ptr(value));
 }

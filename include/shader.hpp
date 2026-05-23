@@ -13,9 +13,11 @@ class Shader {
 
     void use_program();
 
-    void set_uniform(const char* name, float value);
-    void set_uniform(const char* name, const glm::vec2& value);
-    void set_uniform(const char* name, const glm::mat4& value);
+    GLint get_uniform_location(const char* name) const;
+
+    void set_uniform(GLint location, float value);
+    void set_uniform(GLint location, const glm::vec2& value);
+    void set_uniform(GLint location, const glm::mat4& value);
 
   private:
     GLuint _program{0};

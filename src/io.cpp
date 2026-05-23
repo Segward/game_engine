@@ -1,40 +1,29 @@
 #include <io.hpp>
 
-std::string IO::read(const char* path) {
-  constexpr std::uintmax_t MAX_SIZE = 1ull << 30;
-
-  std::error_code ec;
-  std::uintmax_t size = std::filesystem::file_size(path, ec);
-  if (ec) {
-    throw std::runtime_error(std::string("IO::read failed to stat ") + path + ": " + ec.message());
+std::string io::read(const char* path, std::uintmax_t max_size) {
+  if (!std::filesystem::is_regular_file(path)) {
+    throw std::runtime_error(std::string("io::read not a regular file: ") + path);
   }
 
-  if (size > MAX_SIZE) {
-    throw std::runtime_error(std::string("IO::read file exceeds size limit: ") + path);
+  std::uintmax_t size = std::filesystem::file_size(path);
+  if (size > max_size) {
+    throw std::runtime_error(std::string("io::read file exceeds size limit: ") + path);
   }
 
-  std::ifstream stream(path, std::ios::binary);
-  if (!stream) {
-    throw std::runtime_error(std::string("IO::read failed to open ") + path);
-  }
+  std::ifstream stream;
+  stream.exceptions(std::ios::failbit | std::ios::badbit);
+  stream.open(path, std::ios::binary);
 
   std::string result(static_cast<size_t>(size), '\0');
   stream.read(result.data(), static_cast<std::streamsize>(size));
-  if (static_cast<std::uintmax_t>(stream.gcount()) != size) {
-    throw std::runtime_error(std::string("IO::read short read on ") + path);
-  }
-
   return result;
 }
 
-void IO::write(const char* path, std::string_view content) {
-  std::ofstream stream(path, std::ios::binary | std::ios::trunc);
-  if (!stream) {
-    throw std::runtime_error(std::string("IO::write failed to open ") + path);
-  }
+void io::write(const char* path, std::string_view content) {
+  std::ofstream stream;
+  stream.exceptions(std::ios::failbit | std::ios::badbit);
+  stream.open(path, std::ios::binary | std::ios::trunc);
 
   stream.write(content.data(), static_cast<std::streamsize>(content.size()));
-  if (!stream) {
-    throw std::runtime_error(std::string("IO::write failed to write ") + path);
-  }
+  stream.close();
 }

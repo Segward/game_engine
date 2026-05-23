@@ -12,12 +12,10 @@ find_package(glm CONFIG REQUIRED)
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/assets")
-  file(CREATE_LINK
-    "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-    "${CMAKE_BINARY_DIR}/assets"
-    SYMBOLIC)
-endif()
+file(CREATE_LINK
+  "${CMAKE_CURRENT_SOURCE_DIR}/assets"
+  "${CMAKE_BINARY_DIR}/assets"
+  SYMBOLIC)
 
 target_include_directories(
   ${PROJECT_NAME} PRIVATE
