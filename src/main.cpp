@@ -1,8 +1,11 @@
 #include <global.hpp>
+#include <quad.hpp>
 
 int main() {
   try {
     Window& window = Global::instance().window();
+
+    Quad quad;
 
     while (!window.should_close()) {
       window.poll_events();
@@ -12,6 +15,7 @@ int main() {
       }
 
       glClear(GL_COLOR_BUFFER_BIT);
+      quad.render({0.0f, 0.0f}, {0.5f, 0.5f}, {1.0f, 0.3f, 0.2f});
       window.swap_buffers();
     }
   } catch (const std::exception& error) {

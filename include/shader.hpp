@@ -17,6 +17,7 @@ class Shader {
 
     void set_uniform(GLint location, float value);
     void set_uniform(GLint location, const glm::vec2& value);
+    void set_uniform(GLint location, const glm::vec3& value);
     void set_uniform(GLint location, const glm::mat4& value);
 
   private:
