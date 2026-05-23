@@ -3,7 +3,7 @@
 
 class Window {
   public:
-    Window(int width, int height, const char *title);
+    static Window& instance();
     ~Window();
 
     Window(const Window&) = delete;
@@ -21,6 +21,8 @@ class Window {
     int height() const { return _height; }
 
   private:
+    Window();
+
     GLFWwindow* _handle{nullptr};
     int _width{0};
     int _height{0};

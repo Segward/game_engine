@@ -11,6 +11,11 @@ namespace {
   const std::vector<GLuint> QUAD_INDICES = {0, 1, 2, 2, 3, 0};
 }
 
+Quad& Quad::instance() {
+  static Quad quad;
+  return quad;
+}
+
 Quad::Quad()
   : _mesh(QUAD_POSITIONS, QUAD_INDICES),
     _shader("assets/quad.vert", "assets/quad.frag"),

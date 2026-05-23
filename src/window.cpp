@@ -1,7 +1,12 @@
 #include <window.hpp>
 
-Window::Window(int width, int height, const char *title) {
-  _handle = glfwCreateWindow(width, height, title, nullptr, nullptr);
+Window& Window::instance() {
+  static Window window;
+  return window;
+}
+
+Window::Window() {
+  _handle = glfwCreateWindow(1280, 720, "game engine", nullptr, nullptr);
   if (!_handle) {
     throw std::runtime_error("glfwCreateWindow failed");
   }
@@ -21,6 +26,7 @@ Window::~Window() {
   }
 
   glfwDestroyWindow(_handle);
+  glfwTerminate();
 }
 
 void Window::set_should_close(bool value) {

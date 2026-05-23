@@ -6,7 +6,7 @@
 
 class Quad {
   public:
-    Quad();
+    static Quad& instance();
 
     Quad(const Quad&) = delete;
     Quad& operator=(const Quad&) = delete;
@@ -16,6 +16,8 @@ class Quad {
     void render(const glm::vec2& position, const glm::vec2& size, const glm::vec3& color);
 
   private:
+    Quad();
+
     Mesh _mesh;
     Shader _shader;
     GLint _u_position{-1};

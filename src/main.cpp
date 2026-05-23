@@ -1,11 +1,9 @@
 #include <global.hpp>
-#include <quad.hpp>
 
 int main() {
   try {
     Window& window = Global::instance().window();
-
-    Quad quad;
+    Quad& quad = Global::instance().quad();
 
     while (!window.should_close()) {
       window.poll_events();
