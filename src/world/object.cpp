@@ -16,7 +16,7 @@ Object::Object(b2WorldId world, b2BodyType type) {
 
   b2ShapeDef shape_def = b2DefaultShapeDef();
   shape_def.density = 1.0f;
-  shape_def.material.restitution = 0.8f;
+  shape_def.material.restitution = 0.1f;
   _shape = b2CreatePolygonShape(_body, &shape_def, &polygon);
 }
 
