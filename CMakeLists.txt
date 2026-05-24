@@ -9,6 +9,7 @@ find_package(box2d CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
+find_package(Stb REQUIRED)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -25,6 +26,7 @@ target_include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/graphics
   ${CMAKE_CURRENT_SOURCE_DIR}/include/util
   ${CMAKE_CURRENT_SOURCE_DIR}/include/world
+  ${Stb_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

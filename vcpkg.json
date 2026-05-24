@@ -5,6 +5,7 @@
     "box2d",
     "glad",
     "glfw3",
-    "glm"
+    "glm",
+    "stb"
   ]
 }

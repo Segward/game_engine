@@ -1,5 +1,7 @@
+#include <assets.hpp>
 #include <object.hpp>
 #include <quad.hpp>
+#include <texture.hpp>
 #include <world.hpp>
 
 Object::Object(b2WorldId world, b2BodyType type) {
@@ -38,7 +40,8 @@ void Object::render() const {
   b2Rot rotation = b2Body_GetRotation(_body);
   glm::vec2 rotation_basis = {rotation.c, rotation.s};
 
-  Quad::instance().render(position_pixels, _size, rotation_basis, _color);
+  glm::vec2 uv_scale = _tiled ? _size / glm::vec2(_texture->width(), _texture->height()) : glm::vec2(1.0f, 1.0f);
+  Quad::instance().render(position_pixels, _size, rotation_basis, uv_scale, *_texture);
 }
 
 float Object::rotation() const {
@@ -58,6 +61,10 @@ void Object::set_rotation(float rotation) {
   b2Vec2 current_position = b2Body_GetPosition(_body);
   b2Rot new_rotation = b2MakeRot(rotation);
   b2Body_SetTransform(_body, current_position, new_rotation);
+}
+
+void Object::set_texture(const char* path) {
+  _texture = &Assets::instance().get_texture(path);
 }
 
 void Object::set_size(const glm::vec2& size) {

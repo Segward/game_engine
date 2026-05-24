@@ -50,6 +50,10 @@ GLint ShaderProgram::get_uniform_location(const char* name) const {
   return glGetUniformLocation(_program, name);
 }
 
+void ShaderProgram::set_uniform(GLint location, int value) const {
+  glProgramUniform1i(_program, location, value);
+}
+
 void ShaderProgram::set_uniform(GLint location, float value) const {
   glProgramUniform1f(_program, location, value);
 }

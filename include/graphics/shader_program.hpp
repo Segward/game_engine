@@ -12,6 +12,7 @@ class ShaderProgram {
     ShaderProgram& operator=(ShaderProgram&&) = delete;
 
     GLint get_uniform_location(const char* name) const;
+    void set_uniform(GLint location, int value) const;
     void set_uniform(GLint location, float value) const;
     void set_uniform(GLint location, const glm::vec2& value) const;
     void set_uniform(GLint location, const glm::vec3& value) const;
