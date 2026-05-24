@@ -2,7 +2,7 @@
 #define QUAD_HPP
 
 #include <mesh.hpp>
-#include <shader.hpp>
+#include <shader_program.hpp>
 
 class Quad {
   public:
@@ -13,13 +13,13 @@ class Quad {
     Quad& operator=(const Quad&) = delete;
     Quad& operator=(Quad&&) = delete;
 
-    void render(const glm::vec2& position, const glm::vec2& size, const glm::vec2& rotation, const glm::vec3& color);
+    void render(const glm::vec2& position, const glm::vec2& size, const glm::vec2& rotation_basis, const glm::vec3& color) const;
 
   private:
     Quad();
 
     Mesh _mesh;
-    Shader _shader;
+    ShaderProgram _shader;
     GLint _u_color{-1};
     GLint _u_position{-1};
     GLint _u_rotation{-1};

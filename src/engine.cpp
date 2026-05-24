@@ -11,7 +11,13 @@ Engine& Engine::instance() {
 
 Engine::Engine() {
   init::glfw();
-  Window::instance();
+  try {
+    Window::instance();
+  } catch (...) {
+    glfwTerminate();
+    throw;
+  }
+
   init::glad();
   World::instance();
   Quad::instance();

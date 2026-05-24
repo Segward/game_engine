@@ -30,5 +30,5 @@ void World::render() const {
 }
 
 void World::step() {
-  b2World_Step(_id, 1.0f / 60.0f, 4);
+  b2World_Step(_id, TIMESTEP, SUB_STEPS);
 }

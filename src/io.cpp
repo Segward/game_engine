@@ -27,5 +27,4 @@ void io::write(const char* path, std::string_view content) {
   stream.open(path, std::ios::binary | std::ios::trunc);
 
   stream.write(content.data(), static_cast<std::streamsize>(content.size()));
-  stream.close();
 }

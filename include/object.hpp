@@ -4,6 +4,12 @@
 class Object {
   public:
     Object(b2WorldId world, b2BodyType type);
+    ~Object();
+
+    Object(const Object&) = delete;
+    Object(Object&&) = delete;
+    Object& operator=(const Object&) = delete;
+    Object& operator=(Object&&) = delete;
 
     glm::vec3 color() const { return _color; }
     glm::vec2 size() const { return _size; }
@@ -18,9 +24,9 @@ class Object {
 
   private:
     b2BodyId _body;
-    glm::vec3 _color = {0.5f, 0.5f, 0.5f};
     b2ShapeId _shape;
     glm::vec2 _size = {50.0f, 50.0f};
+    glm::vec3 _color = {0.5f, 0.5f, 0.5f};
 };
 
 #endif

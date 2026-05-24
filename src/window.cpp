@@ -36,8 +36,7 @@ void Window::poll_events() {
 }
 
 void Window::set_should_close(bool value) {
-  int flag = value ? GLFW_TRUE : GLFW_FALSE;
-  glfwSetWindowShouldClose(_handle, flag);
+  glfwSetWindowShouldClose(_handle, value);
 }
 
 bool Window::should_close() const {

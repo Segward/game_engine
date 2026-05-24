@@ -1,7 +1,7 @@
 #include <init.hpp>
 
 void init::glad() {
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+  if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
     throw std::runtime_error("gladLoadGLLoader failed");
   }
 

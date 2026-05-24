@@ -18,6 +18,10 @@ Object::Object(b2WorldId world, b2BodyType type) {
   _shape = b2CreatePolygonShape(_body, &shape_def, &polygon);
 }
 
+Object::~Object() {
+  b2DestroyBody(_body);
+}
+
 glm::vec2 Object::position() const {
   b2Vec2 position_meters = b2Body_GetPosition(_body);
   float x = position_meters.x * World::PIXELS_PER_METER;
@@ -32,9 +36,9 @@ void Object::render() const {
   glm::vec2 position_pixels = {x, y};
 
   b2Rot rotation = b2Body_GetRotation(_body);
-  glm::vec2 rotation_vec = {rotation.c, rotation.s};
+  glm::vec2 rotation_basis = {rotation.c, rotation.s};
 
-  Quad::instance().render(position_pixels, _size, rotation_vec, _color);
+  Quad::instance().render(position_pixels, _size, rotation_basis, _color);
 }
 
 float Object::rotation() const {
