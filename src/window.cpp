@@ -12,7 +12,7 @@ Window::Window() {
   }
 
   glfwMakeContextCurrent(_handle);
-  glfwSwapInterval(0);
+  glfwSwapInterval(1);
 
   glfwGetFramebufferSize(_handle, &_width, &_height);
 

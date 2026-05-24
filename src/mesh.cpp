@@ -7,11 +7,13 @@ Mesh::Mesh(const std::vector<glm::vec3>& positions, const std::vector<GLuint>& i
 
   glBindVertexArray(_vao);
 
+  const GLsizeiptr positions_bytes = static_cast<GLsizeiptr>(positions.size() * sizeof(glm::vec3));
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(positions.size() * sizeof(glm::vec3)), positions.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, positions_bytes, positions.data(), GL_STATIC_DRAW);
 
+  const GLsizeiptr indices_bytes = static_cast<GLsizeiptr>(indices.size() * sizeof(GLuint));
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(GLuint)), indices.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_bytes, indices.data(), GL_STATIC_DRAW);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), nullptr);
   glEnableVertexAttribArray(0);

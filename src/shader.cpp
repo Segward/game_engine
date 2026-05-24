@@ -2,53 +2,53 @@
 #include <shader.hpp>
 
 namespace {
-  std::string get_info_log(GLuint object, GLenum kind) {
-    auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
-    auto getlog = (kind == GL_SHADER) ? glGetShaderInfoLog : glGetProgramInfoLog;
+std::string get_info_log(GLuint object, GLenum kind) {
+  auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+  auto getlog = (kind == GL_SHADER) ? glGetShaderInfoLog : glGetProgramInfoLog;
 
-    GLint length = 0;
-    getiv(object, GL_INFO_LOG_LENGTH, &length);
-    if (length <= 0) {
-      return {};
-    }
-
-    std::string log(static_cast<size_t>(length - 1), '\0');
-    getlog(object, length, nullptr, log.data());
-    return log;
+  GLint length = 0;
+  getiv(object, GL_INFO_LOG_LENGTH, &length);
+  if (length <= 0) {
+    return {};
   }
 
-  std::optional<std::string> check_status(GLuint object, GLenum status_pname, GLenum kind) {
-    auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
-    GLint status = GL_FALSE;
-    getiv(object, status_pname, &status);
-    if (status == GL_TRUE) {
-      return std::nullopt;
-    }
-
-    return get_info_log(object, kind);
-  }
-
-  GLuint compile_stage(GLenum stage, const char* path) {
-    std::string source = io::read(path);
-    const char* source_ptr = source.c_str();
-    const GLint source_len = static_cast<GLint>(source.size());
-
-    GLuint shader = glCreateShader(stage);
-    if (!shader) {
-      throw std::runtime_error(std::string("compile_stage failed to create shader for ") + path);
-    }
-
-    glShaderSource(shader, 1, &source_ptr, &source_len);
-    glCompileShader(shader);
-
-    if (auto log = check_status(shader, GL_COMPILE_STATUS, GL_SHADER)) {
-      glDeleteShader(shader);
-      throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + *log);
-    }
-
-    return shader;
-  }
+  std::string log(static_cast<size_t>(length - 1), '\0');
+  getlog(object, length, nullptr, log.data());
+  return log;
 }
+
+std::optional<std::string> check_status(GLuint object, GLenum status_pname, GLenum kind) {
+  auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+  GLint status = GL_FALSE;
+  getiv(object, status_pname, &status);
+  if (status == GL_TRUE) {
+    return std::nullopt;
+  }
+
+  return get_info_log(object, kind);
+}
+
+GLuint compile_stage(GLenum stage, const char* path) {
+  std::string source = io::read(path);
+  const char* source_ptr = source.c_str();
+  const GLint source_len = static_cast<GLint>(source.size());
+
+  GLuint shader = glCreateShader(stage);
+  if (!shader) {
+    throw std::runtime_error(std::string("compile_stage failed to create shader for ") + path);
+  }
+
+  glShaderSource(shader, 1, &source_ptr, &source_len);
+  glCompileShader(shader);
+
+  if (auto log = check_status(shader, GL_COMPILE_STATUS, GL_SHADER)) {
+    glDeleteShader(shader);
+    throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + *log);
+  }
+
+  return shader;
+}
+}  // namespace
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) {
   GLuint vertex = compile_stage(GL_VERTEX_SHADER, vertex_path);
