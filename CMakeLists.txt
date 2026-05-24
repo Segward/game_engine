@@ -21,6 +21,10 @@ file(CREATE_LINK
 target_include_directories(
   ${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/engine
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/graphics
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/util
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/world
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
