@@ -5,7 +5,7 @@ class Object;
 
 class World {
   public:
-    static constexpr b2Vec2 GRAVITY = {0.0f, -0.1f};
+    static constexpr b2Vec2 GRAVITY = {0.0f, -0.3f};
     static constexpr float PIXELS_PER_METER = 50.0f;
 
     static World& instance();
