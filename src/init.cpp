@@ -1,4 +1,7 @@
 #include <init.hpp>
+#include <quad.hpp>
+#include <window.hpp>
+#include <world.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -21,4 +24,12 @@ void init::glad() {
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_BLEND);
+}
+
+void init::all() {
+  init::glfw();
+  Window::instance();
+  init::glad();
+  World::instance();
+  Quad::instance();
 }

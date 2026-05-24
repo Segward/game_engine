@@ -6,11 +6,9 @@
 
 int main() {
   try {
-    init::glfw();
+    init::all();
     Window& window = Window::instance();
-    init::glad();
     World& world = World::instance();
-    Quad::instance();
 
     Object floor({0.0f, -300.0f}, {1000.0f, 50.0f}, {0.3f, 0.3f, 0.3f}, b2_staticBody);
     Object box_a({-200.0f, 100.0f}, {80.0f, 80.0f}, {1.0f, 0.3f, 0.2f}, b2_dynamicBody);
