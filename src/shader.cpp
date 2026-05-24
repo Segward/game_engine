@@ -51,7 +51,7 @@ GLuint compile_stage(GLenum stage, const char* path) {
 
   return shader;
 }
-}  // namespace
+}
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) {
   GLuint vertex = compile_stage(GL_VERTEX_SHADER, vertex_path);

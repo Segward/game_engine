@@ -3,7 +3,7 @@
 
 class Object {
   public:
-    Object(b2BodyType type);
+    Object(b2WorldId world, b2BodyType type);
 
     glm::vec3 color() const { return _color; }
     glm::vec2 size() const { return _size; }

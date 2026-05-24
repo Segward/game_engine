@@ -10,7 +10,7 @@ const std::vector<glm::vec3> QUAD_POSITIONS = {
 };
 
 const std::vector<GLuint> QUAD_INDICES = {0, 1, 2, 2, 3, 0};
-}  // namespace
+}
 
 Quad& Quad::instance() {
   static Quad quad;

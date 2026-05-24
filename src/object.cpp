@@ -2,11 +2,11 @@
 #include <quad.hpp>
 #include <world.hpp>
 
-Object::Object(b2BodyType type) {
+Object::Object(b2WorldId world, b2BodyType type) {
   b2BodyDef body_def = b2DefaultBodyDef();
   body_def.type = type;
   body_def.enableSleep = false;
-  _body = b2CreateBody(World::instance().id(), &body_def);
+  _body = b2CreateBody(world, &body_def);
 
   float half_width = _size.x * 0.5f / World::PIXELS_PER_METER;
   float half_height = _size.y * 0.5f / World::PIXELS_PER_METER;

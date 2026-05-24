@@ -1,3 +1,4 @@
+#include <object.hpp>
 #include <world.hpp>
 
 World& World::instance() {
@@ -13,7 +14,19 @@ World::World() {
 }
 
 World::~World() {
+  _objects.clear();
   b2DestroyWorld(_id);
+}
+
+Object& World::create_object(b2BodyType type) {
+  _objects.push_back(std::make_unique<Object>(_id, type));
+  return *_objects.back();
+}
+
+void World::render() const {
+  for (const auto& object : _objects) {
+    object->render();
+  }
 }
 
 void World::step() {

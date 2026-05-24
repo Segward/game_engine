@@ -1,15 +1,4 @@
 #include <init.hpp>
-#include <quad.hpp>
-#include <window.hpp>
-#include <world.hpp>
-
-void init::all() {
-  init::glfw();
-  Window::instance();
-  init::glad();
-  World::instance();
-  Quad::instance();
-}
 
 void init::glad() {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
