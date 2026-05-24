@@ -3,17 +3,12 @@
 #include <window.hpp>
 #include <world.hpp>
 
-void init::glfw() {
-  if (!glfwInit()) {
-    throw std::runtime_error("glfwInit failed");
-  }
-
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-#endif
+void init::all() {
+  init::glfw();
+  Window::instance();
+  init::glad();
+  World::instance();
+  Quad::instance();
 }
 
 void init::glad() {
@@ -26,10 +21,15 @@ void init::glad() {
   glEnable(GL_BLEND);
 }
 
-void init::all() {
-  init::glfw();
-  Window::instance();
-  init::glad();
-  World::instance();
-  Quad::instance();
+void init::glfw() {
+  if (!glfwInit()) {
+    throw std::runtime_error("glfwInit failed");
+  }
+
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+#endif
 }

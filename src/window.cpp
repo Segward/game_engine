@@ -13,9 +13,7 @@ Window::Window() {
 
   glfwMakeContextCurrent(_handle);
   glfwSwapInterval(1);
-
   glfwGetFramebufferSize(_handle, &_width, &_height);
-
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, framebuffer_size_callback);
 }
@@ -29,8 +27,17 @@ Window::~Window() {
   glfwTerminate();
 }
 
+bool Window::key_pressed(int key) const {
+  return glfwGetKey(_handle, key) == GLFW_PRESS;
+}
+
+void Window::poll_events() {
+  glfwPollEvents();
+}
+
 void Window::set_should_close(bool value) {
-  glfwSetWindowShouldClose(_handle, value ? GLFW_TRUE : GLFW_FALSE);
+  int flag = value ? GLFW_TRUE : GLFW_FALSE;
+  glfwSetWindowShouldClose(_handle, flag);
 }
 
 bool Window::should_close() const {
@@ -41,14 +48,6 @@ void Window::swap_buffers() {
   glfwSwapBuffers(_handle);
 }
 
-void Window::poll_events() {
-  glfwPollEvents();
-}
-
-bool Window::key_pressed(int key) const {
-  return glfwGetKey(_handle, key) == GLFW_PRESS;
-}
-
 void Window::framebuffer_size_callback(GLFWwindow* handle, int width, int height) {
   Window* self = static_cast<Window*>(glfwGetWindowUserPointer(handle));
   if (!self) {
@@ -57,6 +56,5 @@ void Window::framebuffer_size_callback(GLFWwindow* handle, int width, int height
 
   self->_width = width;
   self->_height = height;
-
   glViewport(0, 0, width, height);
 }

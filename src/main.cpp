@@ -10,11 +10,11 @@ int main() {
     Window& window = Window::instance();
     World& world = World::instance();
 
-    Object floor({0.0f, -300.0f}, {1000.0f, 50.0f}, {0.3f, 0.3f, 0.3f}, b2_staticBody);
-    Object box_a({-200.0f, 100.0f}, {80.0f, 80.0f}, {1.0f, 0.3f, 0.2f}, b2_dynamicBody);
-    Object box_b({-50.0f, 200.0f}, {60.0f, 60.0f}, {0.2f, 0.8f, 0.4f}, b2_dynamicBody);
-    Object box_c({100.0f, 50.0f}, {100.0f, 100.0f}, {0.3f, 0.5f, 1.0f}, b2_dynamicBody);
-    Object box_d({250.0f, 250.0f}, {70.0f, 70.0f}, {1.0f, 0.9f, 0.3f}, b2_dynamicBody);
+    Object floor(b2_staticBody);
+    Object box_a(b2_dynamicBody);
+    Object box_b(b2_dynamicBody);
+    Object box_c(b2_dynamicBody);
+    Object box_d(b2_dynamicBody);
 
     while (!window.should_close()) {
       window.poll_events();

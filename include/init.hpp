@@ -2,9 +2,9 @@
 #define INIT_HPP
 
 namespace init {
-void glfw();
-void glad();
-void all();
-}  // namespace init
+  void all();
+  void glad();
+  void glfw();
+}
 
 #endif

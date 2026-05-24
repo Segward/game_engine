@@ -19,6 +19,7 @@ std::string get_info_log(GLuint object, GLenum kind) {
 
 std::optional<std::string> check_status(GLuint object, GLenum status_pname, GLenum kind) {
   auto getiv = (kind == GL_SHADER) ? glGetShaderiv : glGetProgramiv;
+
   GLint status = GL_FALSE;
   getiv(object, status_pname, &status);
   if (status == GL_TRUE) {
@@ -35,7 +36,8 @@ GLuint compile_stage(GLenum stage, const char* path) {
 
   GLuint shader = glCreateShader(stage);
   if (!shader) {
-    throw std::runtime_error(std::string("compile_stage failed to create shader for ") + path);
+    std::string message = std::string("compile_stage failed to create shader for ") + path;
+    throw std::runtime_error(message);
   }
 
   glShaderSource(shader, 1, &source_ptr, &source_len);
@@ -43,7 +45,8 @@ GLuint compile_stage(GLenum stage, const char* path) {
 
   if (auto log = check_status(shader, GL_COMPILE_STATUS, GL_SHADER)) {
     glDeleteShader(shader);
-    throw std::runtime_error(std::string("compile_stage failed to compile ") + path + ": " + *log);
+    std::string message = std::string("compile_stage failed to compile ") + path + ": " + *log;
+    throw std::runtime_error(message);
   }
 
   return shader;
@@ -52,6 +55,7 @@ GLuint compile_stage(GLenum stage, const char* path) {
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) {
   GLuint vertex = compile_stage(GL_VERTEX_SHADER, vertex_path);
+
   GLuint fragment;
   try {
     fragment = compile_stage(GL_FRAGMENT_SHADER, fragment_path);
@@ -77,7 +81,8 @@ Shader::Shader(const char* vertex_path, const char* fragment_path) {
   if (auto log = check_status(_program, GL_LINK_STATUS, GL_PROGRAM)) {
     glDeleteProgram(_program);
     _program = 0;
-    throw std::runtime_error("Shader failed to link program: " + *log);
+    std::string message = "Shader failed to link program: " + *log;
+    throw std::runtime_error(message);
   }
 }
 
@@ -87,10 +92,6 @@ Shader::~Shader() {
   }
 
   glDeleteProgram(_program);
-}
-
-void Shader::use_program() {
-  glUseProgram(_program);
 }
 
 GLint Shader::get_uniform_location(const char* name) const {
@@ -111,4 +112,8 @@ void Shader::set_uniform(GLint location, const glm::vec3& value) {
 
 void Shader::set_uniform(GLint location, const glm::mat4& value) {
   glProgramUniformMatrix4fv(_program, location, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void Shader::use_program() {
+  glUseProgram(_program);
 }

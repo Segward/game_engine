@@ -20,19 +20,22 @@ Quad& Quad::instance() {
 Quad::Quad()
     : _mesh(QUAD_POSITIONS, QUAD_INDICES),
       _shader("assets/quad.vert", "assets/quad.frag"),
+      _u_color(_shader.get_uniform_location("u_color")),
       _u_position(_shader.get_uniform_location("u_position")),
-      _u_size(_shader.get_uniform_location("u_size")),
       _u_rotation(_shader.get_uniform_location("u_rotation")),
-      _u_window_size(_shader.get_uniform_location("u_window_size")),
-      _u_color(_shader.get_uniform_location("u_color")) {}
+      _u_size(_shader.get_uniform_location("u_size")),
+      _u_window_size(_shader.get_uniform_location("u_window_size")) {}
 
 void Quad::render(const glm::vec2& position, const glm::vec2& size, const glm::vec2& rotation, const glm::vec3& color) {
   Window& window = Window::instance();
-  _shader.set_uniform(_u_position, position);
-  _shader.set_uniform(_u_size, size);
-  _shader.set_uniform(_u_rotation, rotation);
-  _shader.set_uniform(_u_window_size, glm::vec2(window.width(), window.height()));
+  glm::vec2 window_size = {window.width(), window.height()};
+
   _shader.set_uniform(_u_color, color);
+  _shader.set_uniform(_u_position, position);
+  _shader.set_uniform(_u_rotation, rotation);
+  _shader.set_uniform(_u_size, size);
+  _shader.set_uniform(_u_window_size, window_size);
+
   _shader.use_program();
   _mesh.draw();
 }

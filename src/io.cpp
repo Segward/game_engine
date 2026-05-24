@@ -2,12 +2,14 @@
 
 std::string io::read(const char* path, std::uintmax_t max_size) {
   if (!std::filesystem::is_regular_file(path)) {
-    throw std::runtime_error(std::string("io::read not a regular file: ") + path);
+    std::string message = std::string("io::read not a regular file: ") + path;
+    throw std::runtime_error(message);
   }
 
   std::uintmax_t size = std::filesystem::file_size(path);
   if (size > max_size) {
-    throw std::runtime_error(std::string("io::read file exceeds size limit: ") + path);
+    std::string message = std::string("io::read file exceeds size limit: ") + path;
+    throw std::runtime_error(message);
   }
 
   std::ifstream stream;
