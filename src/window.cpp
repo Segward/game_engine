@@ -1,4 +1,3 @@
-#include <GLFW/glfw3.h>
 #include <window.hpp>
 
 Window& Window::instance() {
@@ -37,6 +36,7 @@ Window::Window() {
   glfwMakeContextCurrent(_handle);
   glfwGetFramebufferSize(_handle, &_width, &_height);
   glfwSetWindowUserPointer(_handle, this);
+  glfwSetFramebufferSizeCallback(_handle, resize_callback);
 }
 
 Window::~Window() {

@@ -13,6 +13,7 @@ int main() {
         window.set_should_close(true);
       }
 
+      glClear(GL_COLOR_BUFFER_BIT);
       window.swap_buffers();
     }
   } catch (const std::exception& exception) {

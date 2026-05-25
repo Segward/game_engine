@@ -1,5 +1,3 @@
-#include "common.hpp"
-#include <GLFW/glfw3.h>
 #include <init.hpp>
 
 void init::glfw() {
