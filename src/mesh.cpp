@@ -1,45 +1,40 @@
 #include <mesh.hpp>
 
+namespace {
+  template<typename T>
+  void bind_buffer_data(GLuint buffer, GLenum target, const std::vector<T>& vector) {
+    const GLsizeiptr size = static_cast<GLsizeiptr>(vector.size() * sizeof(T));
+    glBindBuffer(target, buffer);
+    glBufferData(target, size, vector.data(), GL_STATIC_DRAW);
+  }
+
+  void enable_vertex_attribute(GLuint index, GLint size, const void* offset) {
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, sizeof(Vertex), offset);
+    glEnableVertexAttribArray(index);
+  }
+}
+
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices) {
   glGenVertexArrays(1, &_vao);
   glGenBuffers(1, &_vbo);
   glGenBuffers(1, &_ebo);
   glBindVertexArray(_vao);
 
-  const GLsizeiptr vertices_size = static_cast<GLsizeiptr>(vertices.size() * sizeof(Vertex));
-  const GLsizeiptr indices_size = static_cast<GLsizeiptr>(indices.size() * sizeof(GLuint));
+  bind_buffer_data(_vbo, GL_ARRAY_BUFFER, vertices);
+  bind_buffer_data(_ebo, GL_ELEMENT_ARRAY_BUFFER, indices);
 
-  glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER, vertices_size, vertices.data(), GL_STATIC_DRAW);
-
-  glBindBuffer(GL_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ARRAY_BUFFER, indices_size, indices.data(), GL_STATIC_DRAW);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, position)));
-  glEnableVertexAttribArray(0);
-
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, normal)));
-  glEnableVertexAttribArray(1);
-
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, uv)));
-  glEnableVertexAttribArray(2);
+  enable_vertex_attribute(0, 3, reinterpret_cast<void*>(offsetof(Vertex, position)));
+  enable_vertex_attribute(1, 3, reinterpret_cast<void*>(offsetof(Vertex, normal)));
+  enable_vertex_attribute(2, 2, reinterpret_cast<void*>(offsetof(Vertex, uv)));
 
   glBindVertexArray(0);
   _index_count = static_cast<GLsizei>(indices.size());
 }
 
 Mesh::~Mesh() {
-  if (_ebo) {
-    glDeleteBuffers(1, &_ebo);
-  }
-
-  if (_vbo) {
-    glDeleteBuffers(1, &_vbo);
-  }
-
-  if (_vao) {
-    glDeleteVertexArrays(1, &_vao);
-  }
+  if (_ebo) glDeleteBuffers(1, &_ebo);
+  if (_vbo) glDeleteBuffers(1, &_vbo);
+  if (_vao) glDeleteVertexArrays(1, &_vao);
 }
 
 void Mesh::draw() const {

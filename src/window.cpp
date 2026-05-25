@@ -22,8 +22,7 @@ void Window::swap_buffers() {
 }
 
 bool Window::key_pressed(int key) const {
-  int state = glfwGetKey(_handle, key);
-  return state == GLFW_PRESS;
+  return glfwGetKey(_handle, key) == GLFW_PRESS;
 }
 
 Window::Window() {
@@ -40,9 +39,7 @@ Window::Window() {
 }
 
 Window::~Window() {
-  if (!_handle) {
-    return;
-  }
+  if (!_handle) return;
 
   glfwDestroyWindow(_handle);
   glfwTerminate();
@@ -50,9 +47,7 @@ Window::~Window() {
 
 void Window::resize_callback(GLFWwindow* handle, int width, int height) {
   Window* window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(handle));
-  if (!window) {
-    return;
-  }
+  if (!window) return;
 
   window->_width = width;
   window->_height = height;
