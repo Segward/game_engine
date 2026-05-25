@@ -2,8 +2,8 @@
 #define INIT_HPP
 
 namespace init {
-  void glad();
   void glfw();
+  void glad();
 }
 
 #endif

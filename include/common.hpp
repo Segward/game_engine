@@ -1,37 +1,23 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-#include <array>
-#include <unordered_map>
-#include <vector>
-
-#include <string>
-#include <string_view>
-
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
-#include <exception>
-#include <filesystem>
-#include <functional>
-#include <memory>
-#include <optional>
+// standard libraries
 #include <stdexcept>
-#include <system_error>
-#include <utility>
+#include <exception>
+#include <iostream>
 
-#include <cmath>
-#include <cstdint>
-#include <cstdlib>
-
+// glad for loading opengl function
 #include <glad/glad.h>
+
+// glfw for window and input
 #include <GLFW/glfw3.h>
 
+// glm for opengl maths
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// box2d for physics
 #include <box2d/box2d.h>
 
 #endif

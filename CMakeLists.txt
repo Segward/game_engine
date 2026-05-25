@@ -11,21 +11,12 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(Stb REQUIRED)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
-
-file(CREATE_LINK
-  "${CMAKE_CURRENT_SOURCE_DIR}/assets"
-  "${CMAKE_BINARY_DIR}/assets"
-  SYMBOLIC)
 
 target_include_directories(
   ${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/engine
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/graphics
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/util
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/world
   ${Stb_INCLUDE_DIR}
 )
 
