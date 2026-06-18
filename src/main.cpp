@@ -5,6 +5,7 @@ int main() {
   try {
     init::glfw();
     Window& window = Window::instance();
+    init::glad();
 
     while (!window.should_close()) {
       window.poll_events();

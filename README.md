@@ -9,6 +9,13 @@ GLM for math, and Box2D for 2D physics.
 - Git
 - make, pkg-config, curl, zip, unzip, tar
 
+### Linux (Debian/Ubuntu)
+GLFW requires X11 and OpenGL development libraries. Install them with:
+
+```sh
+sudo apt install xorg-dev libgl1-mesa-dev
+```
+
 ## Install
 > [!IMPORTANT]
 > Clone with `--recurse-submodules` — vcpkg is vendored as a submodule.
