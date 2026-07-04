@@ -19,15 +19,15 @@ ShaderHandle::ShaderHandle(const std::string& path, GLenum type) {
   std::string source = io::read(path);
   const char* source_c = source.c_str();
 
-  GLuint shader = glCreateShader(type);
-  glShaderSource(shader, 1, &source_c, nullptr);
-  glCompileShader(shader);
+  _handle = glCreateShader(type);
+  glShaderSource(_handle, 1, &source_c, nullptr);
+  glCompileShader(_handle);
 
   GLint ok;
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &ok);
+  glGetShaderiv(_handle, GL_COMPILE_STATUS, &ok);
   if (!ok) {
-    std::string error = "shader handle error: " + get_shader_info_log(shader);
-    glDeleteShader(shader);
+    std::string error = "shader handle error: " + get_shader_info_log(_handle);
+    glDeleteShader(_handle);
     throw std::runtime_error(error);
   }
 }

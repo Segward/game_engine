@@ -11,6 +11,12 @@ class ShaderProgram {
     ShaderProgram& operator=(const ShaderProgram&) = delete;
     ShaderProgram& operator=(ShaderProgram&&) = delete;
 
+    void use() const;
+    GLint get_location(const std::string& name) const;
+    void set_uniform(GLint location, const glm::vec2& value);
+    void set_uniform(GLint location, const glm::vec3& value);
+    void set_uniform(GLint location, const glm::mat4& value);
+
   private:
     GLuint _program{0};
 };
