@@ -1,6 +1,7 @@
 #include <init.hpp>
 #include <window.hpp>
 #include <quad.hpp>
+#include <texture.hpp>
 
 int main() {
   try {
@@ -8,6 +9,7 @@ int main() {
     Window& window = Window::instance();
     init::glad();
     Quad& quad = Quad::instance();
+    Texture texture("assets/granny.png");
 
     while (!window.should_close()) {
       window.poll_events();
@@ -17,11 +19,7 @@ int main() {
       }
 
       glClear(GL_COLOR_BUFFER_BIT);
-      quad.draw({0.0f, 0.0f}, {0.5f, 0.5f});
-      GLenum gl_error = glGetError();
-      if (gl_error != GL_NO_ERROR) {
-        std::cout << "gl error: " << gl_error << "\n";
-      }
+      quad.draw({0.0f, 0.0f}, {0.5f, 0.5f}, texture);
       window.swap_buffers();
     }
   } catch (const std::exception& exception) {

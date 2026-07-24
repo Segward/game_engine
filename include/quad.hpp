@@ -3,6 +3,7 @@
 
 #include <shader_program.hpp>
 #include <mesh.hpp>
+#include <texture.hpp>
 
 class Quad {
   public:
@@ -13,7 +14,7 @@ class Quad {
     Quad(Quad&&) = delete;
     Quad& operator=(Quad&&) = delete;
 
-    void draw(const glm::vec2& position, const glm::vec2& size);
+    void draw(const glm::vec2& position, const glm::vec2& size, const Texture& texture);
 
   private:
     ShaderProgram _program;

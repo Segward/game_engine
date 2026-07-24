@@ -13,6 +13,7 @@ class ShaderProgram {
 
     void use() const;
     GLint get_location(const std::string& name) const;
+    void set_uniform(GLint location, GLint value);
     void set_uniform(GLint location, const glm::vec2& value);
     void set_uniform(GLint location, const glm::vec3& value);
     void set_uniform(GLint location, const glm::mat4& value);
