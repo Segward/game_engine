@@ -3,6 +3,9 @@
 
 class Texture {
   public:
+    int _width{0};
+    int _height{0};
+
     Texture(const std::string& texture_path);
     ~Texture();
 
@@ -15,8 +18,6 @@ class Texture {
 
   private:
     GLuint _handle{0};
-    int _width{0};
-    int _height{0};
 };
 
 #endif

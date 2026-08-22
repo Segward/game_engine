@@ -14,7 +14,8 @@ class Quad {
     Quad(Quad&&) = delete;
     Quad& operator=(Quad&&) = delete;
 
-    void draw(const glm::vec2& position, const glm::vec2& size, const Texture& texture);
+    void draw(const glm::vec2& position, const glm::vec2& size, 
+        const Texture& texture, const glm::vec2& uv_offset, const glm::vec2& uv_scale);
 
   private:
     ShaderProgram _program;
