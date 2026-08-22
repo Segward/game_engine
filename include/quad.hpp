@@ -3,7 +3,7 @@
 
 #include <shader_program.hpp>
 #include <mesh.hpp>
-#include <texture.hpp>
+#include <sprite.hpp>
 
 class Quad {
   public:
@@ -14,8 +14,7 @@ class Quad {
     Quad(Quad&&) = delete;
     Quad& operator=(Quad&&) = delete;
 
-    void draw(const glm::vec2& position, const glm::vec2& size, 
-        const Texture& texture, const glm::vec2& uv_offset, const glm::vec2& uv_scale);
+    void draw(const glm::vec2& position, const glm::vec2& size, const Sprite& sprite); 
 
   private:
     ShaderProgram _program;

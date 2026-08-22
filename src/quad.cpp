@@ -16,8 +16,7 @@ Quad& Quad::instance() {
   return quad;
 }
 
-void Quad::draw(const glm::vec2& position, const glm::vec2& size, 
-    const Texture& texture, const glm::vec2& uv_offset, const glm::vec2& uv_scale) {
+void Quad::draw(const glm::vec2& position, const glm::vec2& size, const Sprite& sprite) {
   _program.use();
 
   GLint position_location = _program.get_location("u_position");
@@ -29,12 +28,11 @@ void Quad::draw(const glm::vec2& position, const glm::vec2& size,
   _program.set_uniform(position_location, position);
   _program.set_uniform(size_location, size);
   _program.set_uniform(texture_location, 0);
-  _program.set_uniform(uv_offset_location, uv_offset);
-  _program.set_uniform(uv_scale_location, uv_scale);
+  _program.set_uniform(uv_offset_location, sprite.uv_offset);
+  _program.set_uniform(uv_scale_location, sprite.uv_scale);
 
-  texture.bind(0);
+  sprite.texture->bind(0);
   _mesh.draw();
 }
 
 Quad::Quad() : _program("assets/quad_vert.glsl", "assets/quad_frag.glsl"), _mesh(VERTICES, INDICES) {}
-

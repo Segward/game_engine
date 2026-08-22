@@ -42,3 +42,8 @@ void Texture::bind(GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(GL_TEXTURE_2D, _handle);
 }
+
+Texture& texture::granny() {
+  static Texture texture("assets/granny.png");
+  return texture;
+}

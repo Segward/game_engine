@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <filesystem>
+#include <memory>
 
 // glad for loading opengl function
 #include <glad/glad.h>

@@ -20,4 +20,8 @@ class Texture {
     GLuint _handle{0};
 };
 
+namespace texture {
+  Texture& granny();
+}
+
 #endif

@@ -9,18 +9,6 @@ int main() {
     Window& window = Window::instance();
     init::glad();
     Quad& quad = Quad::instance();
-  
-    Texture texture("assets/granny.png");
-
-    glm::vec2 uv_offset = {
-      0.0f / (float)texture._width, 
-      0.0f / (float)texture._height
-    };
-
-    glm::vec2 uv_scale = {
-      320.0f / (float)texture._width, 
-      320.0f / (float)texture._height
-    };
 
     while (!window.should_close()) {
       window.poll_events();
@@ -30,7 +18,8 @@ int main() {
       }
 
       glClear(GL_COLOR_BUFFER_BIT);
-      quad.draw({0.0f, 0.0f}, {0.5f, 0.5f}, texture, uv_offset, uv_scale);
+      quad.draw({0.3f, 0.0f}, {0.5f, 0.5f}, sprite::granny());
+      quad.draw({-0.3f, 0.0f}, {0.5f, 0.5f}, sprite::half_granny());
       window.swap_buffers();
     }
   } catch (const std::exception& exception) {
