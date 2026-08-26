@@ -18,13 +18,11 @@ class Window {
 
     int get_width() const { return _width; }
     int get_height() const { return _height; }
-    const glm::mat4& get_projection() const { return _projection; }
 
   private:
     GLFWwindow* _handle{nullptr};
     int _width{0};
     int _height{0};
-    glm::mat4 _projection{0.0f};
 
     Window();
     ~Window();
