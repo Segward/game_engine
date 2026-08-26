@@ -1,13 +1,12 @@
-#include <texture.hpp>
+#include "common.hpp"
+#include <texture_handle.hpp>
 #include <io.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-Texture::Texture(const std::string& texture_path) {
+TextureHandle::TextureHandle(const std::string& texture_path) {
   std::string source = io::read(texture_path);
-
-  stbi_set_flip_vertically_on_load(true);
 
   int channels = 0;
   unsigned char* pixels = stbi_load_from_memory(
@@ -25,8 +24,8 @@ Texture::Texture(const std::string& texture_path) {
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
   glGenerateMipmap(GL_TEXTURE_2D);
@@ -34,16 +33,20 @@ Texture::Texture(const std::string& texture_path) {
   stbi_image_free(pixels);
 }
 
-Texture::~Texture() {
+TextureHandle::~TextureHandle() {
   if (_handle) glDeleteTextures(1, &_handle);
 }
 
-void Texture::bind(GLuint unit) const {
+TextureHandle::TextureHandle(TextureHandle&& other) noexcept : _handle(other._handle), _width(other._width), _height(other._height) {
+  other._handle = 0;
+}
+
+void TextureHandle::bind(GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(GL_TEXTURE_2D, _handle);
 }
 
-Texture& texture::granny() {
-  static Texture texture("assets/granny.png");
-  return texture;
+TextureHandle& texture_handle::sprite_sheet() {
+  static TextureHandle texture_handle("assets/sprite_sheet.png");
+  return texture_handle;
 }

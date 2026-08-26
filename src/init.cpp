@@ -1,4 +1,5 @@
 #include <init.hpp>
+#include <texture_store.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -22,4 +23,9 @@ void init::glad() {
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_BLEND);
+}
+
+void init::textures() {
+  TextureStore& store = TextureStore::instance();
+  store.store("assets/sprite_sheet.png");
 }

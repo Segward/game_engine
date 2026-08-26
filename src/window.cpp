@@ -36,6 +36,8 @@ Window::Window() {
   glfwGetFramebufferSize(_handle, &_width, &_height);
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, resize_callback);
+
+  _projection = glm::ortho(0.0f, static_cast<float>(_width), 0.0f, static_cast<float>(_height));
 }
 
 Window::~Window() {
@@ -52,4 +54,6 @@ void Window::resize_callback(GLFWwindow* handle, int width, int height) {
   window->_width = width;
   window->_height = height;
   glViewport(0, 0, width, height);
+
+  window->_projection = glm::ortho(0.0f, static_cast<float>(window->_width), 0.0f, static_cast<float>(window->_height));
 }

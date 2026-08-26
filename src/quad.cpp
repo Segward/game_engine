@@ -1,4 +1,6 @@
 #include <quad.hpp>
+#include <window.hpp>
+#include <texture_store.hpp>
 
 namespace {
   const std::vector<Vertex> VERTICES = {
@@ -24,14 +26,17 @@ void Quad::draw(const glm::vec2& position, const glm::vec2& size, const Sprite& 
   GLint texture_location = _program.get_location("u_texture");
   GLint uv_offset_location = _program.get_location("u_uv_offset");
   GLint uv_scale_location = _program.get_location("u_uv_scale");
+  GLint projection_location = _program.get_location("u_projection");
 
   _program.set_uniform(position_location, position);
   _program.set_uniform(size_location, size);
   _program.set_uniform(texture_location, 0);
   _program.set_uniform(uv_offset_location, sprite.uv_offset);
   _program.set_uniform(uv_scale_location, sprite.uv_scale);
+  _program.set_uniform(projection_location, Window::instance().get_projection());
 
-  sprite.texture->bind(0);
+  TextureStore::instance().load(sprite.id);
+
   _mesh.draw();
 }
 

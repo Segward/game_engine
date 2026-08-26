@@ -1,14 +1,14 @@
 #include <init.hpp>
+#include <iostream>
 #include <window.hpp>
 #include <quad.hpp>
-#include <texture.hpp>
 
 int main() {
   try {
     init::glfw();
     Window& window = Window::instance();
     init::glad();
-    Quad& quad = Quad::instance();
+    init::textures();
 
     while (!window.should_close()) {
       window.poll_events();
@@ -18,8 +18,9 @@ int main() {
       }
 
       glClear(GL_COLOR_BUFFER_BIT);
-      quad.draw({0.3f, 0.0f}, {0.5f, 0.5f}, sprite::granny());
-      quad.draw({-0.3f, 0.0f}, {0.5f, 0.5f}, sprite::half_granny());
+
+      Quad::instance().draw({0.0f, 0.0f}, {64.0f, 64.0f}, sprite::grass_center);
+
       window.swap_buffers();
     }
   } catch (const std::exception& exception) {
