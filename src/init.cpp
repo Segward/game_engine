@@ -1,5 +1,6 @@
 #include <init.hpp>
 #include <texture_store.hpp>
+#include <sprite_store.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -28,4 +29,17 @@ void init::glad() {
 void init::textures() {
   TextureStore& store = TextureStore::instance();
   store.store("assets/sprite_sheet.png");
+}
+
+void init::sprites() {
+  SpriteStore& store = SpriteStore::instance();
+  store.store(0, {0.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {16.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {32.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {0.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {16.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {32.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {0.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {16.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  store.store(0, {32.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
 }

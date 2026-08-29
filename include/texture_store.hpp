@@ -1,7 +1,7 @@
 #ifndef TEXTURE_STORE
 #define TEXTURE_STORE
 
-#include <texture_handle.hpp>
+#include <texture.hpp>
 
 class TextureStore {
   public:
@@ -13,11 +13,10 @@ class TextureStore {
     TextureStore& operator=(TextureStore&&) = delete;
 
     int store(const std::string& texture_path);
-    const TextureHandle& get(int id) const { return _textures[id]; };
-    void load(int id) { _textures[id].bind(0); }
+    void load(const int texture_id) { _textures[texture_id].bind(); }
 
   private:
-    std::vector<TextureHandle> _textures;
+    std::vector<Texture> _textures;
 
     TextureStore() = default;
 };

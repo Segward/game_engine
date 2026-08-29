@@ -1,11 +1,10 @@
-#include "common.hpp"
-#include <texture_handle.hpp>
+#include <texture.hpp>
 #include <io.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-TextureHandle::TextureHandle(const std::string& texture_path) {
+Texture::Texture(const std::string& texture_path) {
   std::string source = io::read(texture_path);
 
   int channels = 0;
@@ -33,20 +32,20 @@ TextureHandle::TextureHandle(const std::string& texture_path) {
   stbi_image_free(pixels);
 }
 
-TextureHandle::~TextureHandle() {
+Texture::~Texture() {
   if (_handle) glDeleteTextures(1, &_handle);
 }
 
-TextureHandle::TextureHandle(TextureHandle&& other) noexcept : _handle(other._handle), _width(other._width), _height(other._height) {
+Texture::Texture(Texture&& other) noexcept : _handle(other._handle), _width(other._width), _height(other._height) {
   other._handle = 0;
 }
 
-void TextureHandle::bind(GLuint unit) const {
+void Texture::bind(GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(GL_TEXTURE_2D, _handle);
 }
 
-TextureHandle& texture_handle::sprite_sheet() {
-  static TextureHandle texture_handle("assets/sprite_sheet.png");
+Texture& texture_handle::sprite_sheet() {
+  static Texture texture_handle("assets/sprite_sheet.png");
   return texture_handle;
 }

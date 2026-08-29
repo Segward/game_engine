@@ -16,8 +16,8 @@ class Window {
     void swap_buffers();
     bool key_pressed(int key) const;
 
-    int get_width() const { return _width; }
-    int get_height() const { return _height; }
+    const int get_width() const { return _width; }
+    const int get_height() const { return _height; }
 
   private:
     GLFWwindow* _handle{nullptr};

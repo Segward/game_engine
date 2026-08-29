@@ -5,6 +5,7 @@ namespace init {
   void glfw();
   void glad();
   void textures();
+  void sprites();
 }
 
 #endif
