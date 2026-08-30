@@ -1,6 +1,7 @@
 #include <init.hpp>
 #include <texture_store.hpp>
 #include <sprite_store.hpp>
+#include <object_store.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -42,4 +43,13 @@ void init::sprites() {
   store.store(0, {0.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
   store.store(0, {16.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
   store.store(0, {32.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+}
+
+void init::objects() {
+  ObjectStore& store = ObjectStore::instance();
+  store.store(0, {50.0f, 50.0f}, {50.0f, 50.0f});
+  store.store(2, {100.0f, 100.0f}, {50.0f, 50.0f});
+  store.store(3, {150.0f, 150.0f}, {50.0f, 50.0f});
+  store.store(4, {200.0f, 200.0f}, {50.0f, 50.0f});
+  store.store(8, {250.0f, 250.0f}, {50.0f, 50.0f});
 }

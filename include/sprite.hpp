@@ -10,8 +10,6 @@ class Sprite {
     Sprite(Sprite&&) noexcept = default;
     Sprite& operator=(Sprite&&) = delete;
 
-    void draw(const glm::vec2& position, const glm::vec2& size);
-
     const int get_texture_id() const { return _texture_id; }
     const glm::vec2 get_uv_offset() const { return _uv_offset; }
     const glm::vec2 get_uv_scale() const { return _uv_scale; }

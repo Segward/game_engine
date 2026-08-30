@@ -12,7 +12,7 @@ class SpriteStore {
     SpriteStore(SpriteStore&&) = delete;
     SpriteStore& operator=(SpriteStore&&) = delete;
 
-    int store(const int texture_id, const glm::vec2 uv_offset, const glm::vec2 uv_scale);
+    int store(const int texture_id, const glm::vec2& uv_offset, const glm::vec2& uv_scale);
     const Sprite& get_sprite(const int sprite_id) { return _sprites[sprite_id]; }
 
   private:

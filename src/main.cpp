@@ -4,6 +4,7 @@
 #include <camera.hpp>
 #include <sprite_store.hpp>
 #include <texture_store.hpp>
+#include <object_store.hpp>
 
 int main() {
   try {
@@ -12,11 +13,13 @@ int main() {
     init::glad();
     init::textures();
     init::sprites();
+    init::objects();
 
     SpriteStore& sprite_store = SpriteStore::instance();
     TextureStore& texture_store = TextureStore::instance();
-    Quad& quad = Quad::instance();
+    ObjectStore& object_store = ObjectStore::instance();
     Camera& camera = Camera::instance();
+    Quad& quad = Quad::instance();
 
     while (!window.should_close()) {
       camera.update();
@@ -28,15 +31,17 @@ int main() {
 
       glClear(GL_COLOR_BUFFER_BIT);
 
-      const Sprite& dirt = sprite_store.get_sprite(4);
-      texture_store.load(dirt.get_texture_id());
-
-      quad.set_uv_offset(dirt.get_uv_offset());
-      quad.set_uv_scale(dirt.get_uv_scale());
       quad.set_projection(camera.get_projection());
 
-      quad.draw({100.0f, 100.0f}, {64.0f, 64.0f});
-      quad.draw({200.0f, 100.0f}, {64.0f, 64.0f});
+      for (const Object& object : object_store.get_objects()) {
+        texture_store.load(object.get_texture_id());
+
+        const Sprite& sprite = sprite_store.get_sprite(object.get_sprite_id());
+        quad.set_uv_offset(sprite.get_uv_offset());
+        quad.set_uv_scale(sprite.get_uv_scale());
+
+        quad.draw(object.get_position(), object.get_size());
+      }
 
       window.swap_buffers();
     }

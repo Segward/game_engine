@@ -6,6 +6,7 @@ namespace init {
   void glad();
   void textures();
   void sprites();
+  void objects();
 }
 
 #endif
