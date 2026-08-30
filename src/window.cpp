@@ -1,5 +1,6 @@
 #include <window.hpp>
 #include <init.hpp>
+#include <renderer.hpp>
 
 Window& Window::instance() {
   static Window window;
@@ -40,4 +41,6 @@ void Window::resize_callback(GLFWwindow* handle, int width, int height) {
 
   window->_size = {width, height};
   glViewport(0, 0, width, height);
+
+  renderer::render();
 }
