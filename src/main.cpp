@@ -32,12 +32,16 @@ int main() {
       camera.update();
       quad.set_projection(camera.get_projection());
 
+      quad.set_view(glm::mat4(1.0f));
+
       texture_store.get(1).bind();
 
       quad.set_uv_offset({0.0f, 0.0f});
       quad.set_uv_scale({1.0f, 1.0f});
 
-      quad.draw(window.get_size() * 0.5f, window.get_size());
+      quad.draw({0.0f, 0.0f}, window.get_size());
+
+      quad.set_view(camera.get_view());
 
       for (const Object& object : object_store.get_all()) {
         const Sprite& sprite = sprite_store.get(object.get_sprite_id());

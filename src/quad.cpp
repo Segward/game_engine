@@ -32,6 +32,7 @@ Quad::Quad() : _program("assets/quad_vert.glsl", "assets/quad_frag.glsl"), _mesh
   _uv_offset_location = _program.get_location("u_uv_offset");
   _uv_scale_location = _program.get_location("u_uv_scale");
   _projection_location = _program.get_location("u_projection");
+  _view_location = _program.get_location("u_view");
 
   _program.set_uniform(_texture_location, 0);
 }

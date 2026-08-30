@@ -36,12 +36,15 @@ void init::textures() {
 
 void init::sprites() {
   Store<Sprite>& store = Store<Sprite>::instance();
+
   store.emplace_back(0, glm::vec2{0.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{32.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+
   store.emplace_back(0, glm::vec2{0.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{32.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+
   store.emplace_back(0, glm::vec2{0.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{16.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
   store.emplace_back(0, glm::vec2{32.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
@@ -49,9 +52,10 @@ void init::sprites() {
 
 void init::objects() {
   Store<Object>& store = Store<Object>::instance();
-  store.emplace_back(0, glm::vec2{50.0f, 50.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(2, glm::vec2{100.0f, 100.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(3, glm::vec2{150.0f, 150.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(4, glm::vec2{200.0f, 200.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(8, glm::vec2{250.0f, 250.0f}, glm::vec2{50.0f, 50.0f});
+
+  store.emplace_back(4, glm::vec2{-50.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(4, glm::vec2{0.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(4, glm::vec2{50.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
+
+  store.emplace_back(0, glm::vec2{100.0f, 200.0f}, glm::vec2{50.0f, 50.0f});
 }

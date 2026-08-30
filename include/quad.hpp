@@ -18,6 +18,7 @@ class Quad {
     void set_uv_offset(const glm::vec2& uv_offset) { _program.set_uniform(_uv_offset_location, uv_offset); }
     void set_uv_scale(const glm::vec2& uv_scale) { _program.set_uniform(_uv_scale_location, uv_scale); }
     void set_projection(const glm::mat4& projection) { _program.set_uniform(_projection_location, projection); }
+    void set_view(const glm::mat4& view) { _program.set_uniform(_view_location, view); }
 
   private:
     ShaderProgram _program;
@@ -29,6 +30,7 @@ class Quad {
     GLint _uv_offset_location;
     GLint _uv_scale_location;
     GLint _projection_location;
+    GLint _view_location;
 
     Quad();
 };
