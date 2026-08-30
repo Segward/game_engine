@@ -11,7 +11,6 @@ class Object {
     Object& operator=(Object&&) = delete;
 
     const int get_sprite_id() const { return _sprite_id; }
-    const int get_texture_id() const;
     const glm::vec2 get_position() const { return _position; }
     const glm::vec2 get_size() const { return _size; }
 
