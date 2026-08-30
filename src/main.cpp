@@ -14,11 +14,11 @@ int main() {
     init::sprites();
     init::objects();
 
-    Store<Sprite>& sprite_store{Store<Sprite>::instance()};
-    Store<Texture>& texture_store{Store<Texture>::instance()};
-    Store<Object>& object_store{Store<Object>::instance()};
-    Camera& camera{Camera::instance()};
-    Quad& quad{Quad::instance()};
+    Store<Sprite>& sprite_store = Store<Sprite>::instance();
+    Store<Texture>& texture_store = Store<Texture>::instance();
+    Store<Object>& object_store = Store<Object>::instance();
+    Camera& camera = Camera::instance();
+    Quad& quad = Quad::instance();
 
     while (!window.should_close()) {
       window.poll_events();
