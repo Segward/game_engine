@@ -4,13 +4,13 @@
 
 int main() {
   try {
-    init::window();
+    init::glfw();
+    Window& window = Window::instance();
+    init::glad();
     init::renderer();
     init::textures();
     init::sprites();
     init::objects();
-
-    Window& window = Window::instance();
 
     while (!window.should_close()) {
       window.poll_events();
