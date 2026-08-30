@@ -1,5 +1,5 @@
-#include <GLFW/glfw3.h>
 #include <window.hpp>
+#include <init.hpp>
 
 Window& Window::instance() {
   static Window window;
@@ -27,6 +27,8 @@ bool Window::key_pressed(int key) const {
 }
 
 Window::Window() {
+  init::glfw();
+
   _handle = glfwCreateWindow(1280, 720, "test", nullptr, nullptr);
   if (!_handle) {
     glfwTerminate();
@@ -37,6 +39,8 @@ Window::Window() {
   glfwGetFramebufferSize(_handle, &_width, &_height);
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, resize_callback);
+
+  init::glad();
 }
 
 Window::~Window() {
