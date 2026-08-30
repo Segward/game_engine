@@ -31,7 +31,3 @@ ShaderHandle::ShaderHandle(const std::string& path, GLenum type) {
     throw std::runtime_error(error);
   }
 }
-
-ShaderHandle::~ShaderHandle() {
-  if (_handle) glDeleteShader(_handle);
-}

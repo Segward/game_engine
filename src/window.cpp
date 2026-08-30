@@ -6,26 +6,6 @@ Window& Window::instance() {
   return window;
 }
 
-bool Window::should_close() const {
-  return glfwWindowShouldClose(_handle);
-}
-
-void Window::set_should_close(bool value) {
-  glfwSetWindowShouldClose(_handle, value);
-}
-
-void Window::poll_events() {
-  glfwPollEvents();
-}
-
-void Window::swap_buffers() {
-  glfwSwapBuffers(_handle);
-}
-
-bool Window::key_pressed(int key) const {
-  return glfwGetKey(_handle, key) == GLFW_PRESS;
-}
-
 Window::Window() {
   init::glfw();
 
@@ -36,7 +16,11 @@ Window::Window() {
   }
 
   glfwMakeContextCurrent(_handle);
-  glfwGetFramebufferSize(_handle, &_width, &_height);
+
+  int width = 0, height = 0;
+  glfwGetFramebufferSize(_handle, &width, &height);
+  _size = {width, height};
+
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, resize_callback);
 
@@ -54,7 +38,6 @@ void Window::resize_callback(GLFWwindow* handle, int width, int height) {
   Window* window = reinterpret_cast<Window*>(glfwGetWindowUserPointer(handle));
   if (!window) return;
 
-  window->_width = width;
-  window->_height = height;
+  window->_size = {width, height};
   glViewport(0, 0, width, height);
 }

@@ -4,7 +4,7 @@
 class Texture {
   public:
     Texture(const std::string& texture_path);
-    ~Texture();
+    ~Texture() { if (_handle) glDeleteTextures(1, &_handle); }
 
     Texture(const Texture&) = delete;
     Texture& operator=(const Texture&) = delete;

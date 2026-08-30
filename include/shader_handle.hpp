@@ -4,7 +4,7 @@
 class ShaderHandle {
   public:
     ShaderHandle(const std::string& path, GLenum type);
-    ~ShaderHandle();
+    ~ShaderHandle() { if (_handle) glDeleteShader(_handle); }
 
     ShaderHandle(const ShaderHandle&) = delete;
     ShaderHandle(ShaderHandle&&) = delete;

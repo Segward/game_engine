@@ -32,12 +32,8 @@ Texture::Texture(const std::string& texture_path) {
   stbi_image_free(pixels);
 }
 
-Texture::~Texture() {
-  if (_handle) glDeleteTextures(1, &_handle);
-}
-
-Texture::Texture(Texture&& other) noexcept : _handle(other._handle), _width(other._width), _height(other._height) {
-  other._handle = 0;
+Texture::Texture(Texture&& other) noexcept : _handle(other._handle), _width(other._width), _height(other._height) { 
+  other._handle = 0; 
 }
 
 void Texture::bind(GLuint unit) const {

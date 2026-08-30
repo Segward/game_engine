@@ -31,6 +31,7 @@ void init::glad() {
 void init::textures() {
   Store<Texture>& store = Store<Texture>::instance();
   store.emplace_back("assets/sprite_sheet.png");
+  store.emplace_back("assets/background.png");
 }
 
 void init::sprites() {
