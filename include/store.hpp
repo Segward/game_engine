@@ -20,7 +20,7 @@ class Store {
       return static_cast<int>(_items.size()) - 1;
     }
 
-    const T& get(const int id) const { return _items[id]; }
+    const T& get(int id) const { return _items[id]; }
     const std::vector<T>& get_all() const { return _items; }
 
   private:

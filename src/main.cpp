@@ -1,13 +1,16 @@
-#include <window.hpp>
 #include <init.hpp>
+#include <window.hpp>
 #include <renderer.hpp>
 
 int main() {
   try {
-    Window& window = Window::instance();
+    init::window();
+    init::renderer();
     init::textures();
     init::sprites();
     init::objects();
+
+    Window& window = Window::instance();
 
     while (!window.should_close()) {
       window.poll_events();

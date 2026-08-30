@@ -13,17 +13,13 @@ class Texture {
 
     void bind(GLuint unit = 0) const;
 
-    const int get_width() const { return _width; }
-    const int get_height() const { return _height; }
+    int get_width() const { return _width; }
+    int get_height() const { return _height; }
 
   private:
     GLuint _handle{0};
     int _width{0};
     int _height{0};
 };
-
-namespace texture_handle {
-  Texture& sprite_sheet();
-}
 
 #endif

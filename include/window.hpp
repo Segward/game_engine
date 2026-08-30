@@ -17,8 +17,8 @@ class Window {
     bool key_pressed(int key) const { return glfwGetKey(_handle, key) == GLFW_PRESS; }
 
     const glm::vec2& get_size() const { return _size; }
-    const float get_width() const { return _size.x; }
-    const float get_height() const { return _size.y; }
+    float get_width() const { return _size.x; }
+    float get_height() const { return _size.y; }
 
   private:
     GLFWwindow* _handle{nullptr};

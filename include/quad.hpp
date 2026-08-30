@@ -26,7 +26,6 @@ class Quad {
 
     GLint _position_location;
     GLint _size_location;
-    GLint _texture_location;
     GLint _uv_offset_location;
     GLint _uv_scale_location;
     GLint _projection_location;

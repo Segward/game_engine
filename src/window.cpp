@@ -8,8 +8,6 @@ Window& Window::instance() {
 }
 
 Window::Window() {
-  init::glfw();
-
   _handle = glfwCreateWindow(1280, 720, "test", nullptr, nullptr);
   if (!_handle) {
     glfwTerminate();
@@ -24,8 +22,6 @@ Window::Window() {
 
   glfwSetWindowUserPointer(_handle, this);
   glfwSetFramebufferSizeCallback(_handle, resize_callback);
-
-  init::glad();
 }
 
 Window::~Window() {

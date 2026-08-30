@@ -40,8 +40,3 @@ void Texture::bind(GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(GL_TEXTURE_2D, _handle);
 }
-
-Texture& texture_handle::sprite_sheet() {
-  static Texture texture_handle("assets/sprite_sheet.png");
-  return texture_handle;
-}

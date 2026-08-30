@@ -28,11 +28,12 @@ void Quad::draw(const glm::vec2& position, const glm::vec2& size) {
 Quad::Quad() : _program("assets/quad_vert.glsl", "assets/quad_frag.glsl"), _mesh(vertices, indices) {
   _position_location = _program.get_location("u_position");
   _size_location = _program.get_location("u_size");
-  _texture_location = _program.get_location("u_texture");
   _uv_offset_location = _program.get_location("u_uv_offset");
   _uv_scale_location = _program.get_location("u_uv_scale");
   _projection_location = _program.get_location("u_projection");
   _view_location = _program.get_location("u_view");
 
-  _program.set_uniform(_texture_location, 0);
+  GLint texture_location = _program.get_location("u_texture");
+  _program.use();
+  _program.set_uniform(texture_location, 0);
 }
