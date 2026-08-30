@@ -35,9 +35,9 @@ namespace {
 }
 
 void init::window() {
-  glad();
-  Window::instance();
   glfw();
+  Window::instance();
+  glad();
 }
 
 void init::renderer() {

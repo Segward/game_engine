@@ -2,8 +2,6 @@
 #define INIT_HPP
 
 namespace init {
-  void glfw();
-  void glad();
   void window();
   void renderer();
   void textures();
