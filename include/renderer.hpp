@@ -2,9 +2,10 @@
 #define RENDERER_HPP
 
 #include <camera.hpp>
-#include <sprite_store.hpp>
-#include <texture_store.hpp>
-#include <object_store.hpp>
+#include <store.hpp>
+#include <texture.hpp>
+#include <sprite.hpp>
+#include <object.hpp>
 #include <camera.hpp>
 #include <quad.hpp>
 
@@ -20,9 +21,9 @@ class Renderer {
     void draw();
 
   private:
-    SpriteStore& _sprite_store{SpriteStore::instance()};
-    TextureStore& _texture_store{TextureStore::instance()};
-    ObjectStore& _object_store{ObjectStore::instance()};
+    Store<Sprite>& _sprite_store{Store<Sprite>::instance()};
+    Store<Texture>& _texture_store{Store<Texture>::instance()};
+    Store<Object>& _object_store{Store<Object>::instance()};
     Camera& _camera{Camera::instance()};
     Quad& _quad{Quad::instance()};
 

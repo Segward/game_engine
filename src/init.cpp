@@ -1,7 +1,8 @@
 #include <init.hpp>
-#include <texture_store.hpp>
-#include <sprite_store.hpp>
-#include <object_store.hpp>
+#include <store.hpp>
+#include <texture.hpp>
+#include <sprite.hpp>
+#include <object.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -28,28 +29,28 @@ void init::glad() {
 }
 
 void init::textures() {
-  TextureStore& store = TextureStore::instance();
-  store.store("assets/sprite_sheet.png");
+  Store<Texture>& store = Store<Texture>::instance();
+  store.emplace_back("assets/sprite_sheet.png");
 }
 
 void init::sprites() {
-  SpriteStore& store = SpriteStore::instance();
-  store.store(0, {0.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {16.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {32.0f / 64.0f, 0.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {0.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {16.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {32.0f / 64.0f, 16.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {0.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {16.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
-  store.store(0, {32.0f / 64.0f, 32.0f / 64.0f}, {16.0f / 64.0f, 16.0f / 64.0f});
+  Store<Sprite>& store = Store<Sprite>::instance();
+  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
 }
 
 void init::objects() {
-  ObjectStore& store = ObjectStore::instance();
-  store.store(0, {50.0f, 50.0f}, {50.0f, 50.0f});
-  store.store(2, {100.0f, 100.0f}, {50.0f, 50.0f});
-  store.store(3, {150.0f, 150.0f}, {50.0f, 50.0f});
-  store.store(4, {200.0f, 200.0f}, {50.0f, 50.0f});
-  store.store(8, {250.0f, 250.0f}, {50.0f, 50.0f});
+  Store<Object>& store = Store<Object>::instance();
+  store.emplace_back(0, glm::vec2{50.0f, 50.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(2, glm::vec2{100.0f, 100.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(3, glm::vec2{150.0f, 150.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(4, glm::vec2{200.0f, 200.0f}, glm::vec2{50.0f, 50.0f});
+  store.emplace_back(8, glm::vec2{250.0f, 250.0f}, glm::vec2{50.0f, 50.0f});
 }
