@@ -4,9 +4,6 @@
 #include <texture.hpp>
 #include <sprite.hpp>
 #include <object.hpp>
-#include <camera.hpp>
-#include <quad.hpp>
-#include <world.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -30,12 +27,6 @@ void init::glad() {
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_BLEND);
-}
-
-void init::renderer() {
-  Camera::instance();
-  Quad::instance();
-  World::instance();
 }
 
 void init::textures() {

@@ -1,5 +1,6 @@
 #include <camera.hpp>
 #include <window.hpp>
+#include <time.hpp>
 
 Camera& Camera::instance() {
   static Camera camera;

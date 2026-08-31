@@ -1,6 +1,8 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
+#include <time.hpp>
+
 class Camera {
   public:
     static Camera& instance();
@@ -12,7 +14,8 @@ class Camera {
 
     void update();
 
-    void set_position(const glm::vec2& position) { _position = position; }
+    void move(const glm::vec2& position) { _position += position * Time::instance().get_fps(); }
+    const glm::vec2& get_position() const { return _position; }
     const glm::mat4& get_projection() const { return _projection; }
     const glm::mat4& get_view() const { return _view; }
 

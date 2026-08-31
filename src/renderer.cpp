@@ -1,23 +1,21 @@
 #include <renderer.hpp>
-#include <window.hpp>
-#include <world.hpp>
-#include <camera.hpp>
-#include <quad.hpp>
 
-void renderer::render() {
-  Window& window = Window::instance();
-  World& world = World::instance();
-  Camera& camera = Camera::instance();
-  Quad& quad = Quad::instance();
+Renderer& Renderer::instance() {
+  static Renderer renderer;
+  return renderer;
+}
+
+void Renderer::render() {
+  _time.update();
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-  camera.update();
-  quad.set_projection(camera.get_projection());
-  quad.set_view(camera.get_view());
+  _camera.update();
+  _quad.set_projection(_camera.get_projection());
+  _quad.set_view(_camera.get_view());
 
-  world.draw_background();
-  world.draw_objects();
+  _background.draw();
+  _world.draw();
 
-  window.swap_buffers();
+  _window.swap_buffers();
 }

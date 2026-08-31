@@ -3,7 +3,6 @@
 
 #include <store.hpp>
 #include <object.hpp>
-#include <texture.hpp>
 #include <quad.hpp>
 #include <window.hpp>
 
@@ -16,14 +15,12 @@ class World {
     World(World&&) = delete;
     World& operator=(World&&) = delete;
 
-    void draw_background();
-    void draw_objects();
+    void draw();
 
   private:
-    Store<Object>& object_store{Store<Object>::instance()};
-    Store<Texture>& texture_store{Store<Texture>::instance()};
-    Quad& quad{Quad::instance()};
-    Window& window{Window::instance()};
+    Store<Object>& _object_store{Store<Object>::instance()};
+    Quad& _quad{Quad::instance()};
+    Window& _window{Window::instance()};
 
     World() = default;
 };

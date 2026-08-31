@@ -10,6 +10,7 @@
 #include <fstream>
 #include <filesystem>
 #include <memory>
+#include <chrono>
 
 // glad for loading opengl function
 #include <glad/glad.h>

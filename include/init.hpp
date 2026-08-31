@@ -4,7 +4,6 @@
 namespace init {
   void glfw();
   void glad();
-  void renderer();
   void textures();
   void sprites();
   void objects();
