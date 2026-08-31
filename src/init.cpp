@@ -6,7 +6,7 @@
 #include <object.hpp>
 #include <camera.hpp>
 #include <quad.hpp>
-#include <background.hpp>
+#include <world.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -35,7 +35,7 @@ void init::glad() {
 void init::renderer() {
   Camera::instance();
   Quad::instance();
-  Background::instance();
+  World::instance();
 }
 
 void init::textures() {

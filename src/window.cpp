@@ -38,5 +38,7 @@ void Window::resize_callback(GLFWwindow* handle, int width, int height) {
   window->_size = {width, height};
   glViewport(0, 0, width, height);
 
+#if defined(__APPLE__) || defined(_WIN32)
   renderer::render();
+#endif
 }

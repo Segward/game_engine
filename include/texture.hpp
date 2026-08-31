@@ -13,13 +13,13 @@ class Texture {
 
     void bind(GLuint unit = 0) const;
 
-    int get_width() const { return _width; }
-    int get_height() const { return _height; }
+    const glm::vec2& get_size() const { return _size; }
+    float get_width() const { return _size.x; }
+    float get_height() const { return _size.y; }
 
   private:
     GLuint _handle{0};
-    int _width{0};
-    int _height{0};
+    glm::vec2 _size{0.0f};
 };
 
 #endif
