@@ -16,6 +16,7 @@ class World {
     World& operator=(World&&) = delete;
 
     void draw();
+    void generate();
 
   private:
     Store<Object>& _object_store{Store<Object>::instance()};

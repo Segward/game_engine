@@ -11,7 +11,6 @@ class Window {
     Window& operator=(Window&&) = delete;
 
     bool should_close() const { return glfwWindowShouldClose(_handle); }
-    void set_should_close(bool value) { glfwSetWindowShouldClose(_handle, value); }
     void poll_events() { glfwPollEvents(); }
     void swap_buffers() { glfwSwapBuffers(_handle); }
     bool key_pressed(int key) const { return glfwGetKey(_handle, key) == GLFW_PRESS; }

@@ -12,27 +12,8 @@ void load::textures() {
 
 void load::sprites() {
   Store<Sprite>& store = Store<Sprite>::instance();
-
-  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-
-  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-
-  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 32.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  store.emplace_back(0, glm::vec2{0.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}); // grass left
+  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}); // grass top
+  store.emplace_back(0, glm::vec2{32.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}); // grass right
+  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}); // dirt center
 }
-
-void load::objects() {
-  Store<Object>& store = Store<Object>::instance();
-
-  store.emplace_back(4, glm::vec2{-50.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(4, glm::vec2{0.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
-  store.emplace_back(4, glm::vec2{50.0f, 0.0f}, glm::vec2{50.0f, 50.0f});
-
-  store.emplace_back(0, glm::vec2{100.0f, 200.0f}, glm::vec2{50.0f, 50.0f});
-}
-

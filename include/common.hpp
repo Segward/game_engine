@@ -11,6 +11,8 @@
 #include <filesystem>
 #include <memory>
 #include <chrono>
+#include <cmath>
+#include <cstdlib>
 
 // glad for loading opengl function
 #include <glad/glad.h>

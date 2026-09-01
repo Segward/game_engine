@@ -3,6 +3,7 @@
 #include <window.hpp>
 #include <controller.hpp>
 #include <renderer.hpp>
+#include <world.hpp>
 
 int main() {
   try {
@@ -15,7 +16,8 @@ int main() {
 
     load::textures();
     load::sprites();
-    load::objects();
+
+    World::instance().generate();
 
     while (!window.should_close()) {
       window.poll_events();
