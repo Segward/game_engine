@@ -1,6 +1,7 @@
 #include <init.hpp>
+#include <load.hpp>
 #include <window.hpp>
-#include <camera.hpp>
+#include <controller.hpp>
 #include <renderer.hpp>
 
 int main() {
@@ -9,32 +10,16 @@ int main() {
     Window& window = Window::instance();
     init::glad();
 
-    init::textures();
-    init::sprites();
-    init::objects();
-
-    Camera& camera = Camera::instance();
+    Controller& controller = Controller::instance();
     Renderer& renderer = Renderer::instance();
+
+    load::textures();
+    load::sprites();
+    load::objects();
 
     while (!window.should_close()) {
       window.poll_events();
-
-      if (window.key_pressed(GLFW_KEY_W)) {
-        camera.move({0.0f, 0.1f});
-      }
-
-      if (window.key_pressed(GLFW_KEY_A)) {
-        camera.move({-0.1f, 0.0f});
-      }
-
-      if (window.key_pressed(GLFW_KEY_S)) {
-        camera.move({0.0f, -0.1f});
-      }
-
-      if (window.key_pressed(GLFW_KEY_D)) {
-        camera.move({0.1f, 0.0f});
-      }
-
+      controller.handle_events();
       renderer.render();
     }
   } catch (const std::exception& exception) {
