@@ -17,6 +17,7 @@ Quad& Quad::instance() {
 }
 
 void Quad::draw(const std::vector<Instance>& instances) {
+  _program.use();
   _mesh.set_instances(instances);
   _mesh.draw();
 }

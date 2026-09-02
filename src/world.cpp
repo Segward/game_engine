@@ -1,5 +1,16 @@
 #include <world.hpp>
 
+namespace {
+  float get_terrain_height(int x) {
+    float large = std::sin(x * 0.012f) * 200.0f;
+    float medium = std::sin(x * 0.035f) * 80.0f;
+    float small = std::sin(x * 0.11f) * 30.0f;
+    float bumps = std::sin(x * 0.25f) * 10.0f;
+    float random = std::rand() % 31 - 15.0f;
+    return large + medium + small + bumps + random;
+  }
+}
+
 World& World::instance() {
   static World world;
   return world;
@@ -24,10 +35,8 @@ void World::draw() {
 }
 
 void World::generate() {
-  for (int x = -500; x <= 500; x++) {
-    float wave = std::sin(x * 0.2f) * 150.0f;
-    float offset = std::rand() % 101 - 50; 
-    for (int y = -10; y * 50.0f <= wave + offset; y++) {
+  for (int x = -1000; x <= 1000; x++) {
+    for (int y = -20; y * 50.0f <= get_terrain_height(x); y++) {
       glm::vec2 position = {x * 50, y * 50};
       _object_store.emplace_back(3, position, glm::vec2{50.0f, 50.0f});
     }

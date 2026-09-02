@@ -14,8 +14,6 @@ class Quad {
     Quad& operator=(Quad&&) = delete;
 
     void draw(const std::vector<Instance>& instances);
-
-    void use_shader_program() { _program.use(); }
     void set_projection(const glm::mat4& projection) { _program.set_uniform(_projection_location, projection); }
     void set_view(const glm::mat4& view) { _program.set_uniform(_view_location, view); }
 
