@@ -16,20 +16,12 @@ Quad& Quad::instance() {
   return quad;
 }
 
-void Quad::draw(const glm::vec2& position, const glm::vec2& size) {
-  _program.use();
-
-  _program.set_uniform(_position_location, position);
-  _program.set_uniform(_size_location, size);
-
+void Quad::draw(const std::vector<Instance>& instances) {
+  _mesh.set_instances(instances);
   _mesh.draw();
 }
 
 Quad::Quad() : _program("assets/quad_vert.glsl", "assets/quad_frag.glsl"), _mesh(vertices, indices) {
-  _position_location = _program.get_location("u_position");
-  _size_location = _program.get_location("u_size");
-  _uv_offset_location = _program.get_location("u_uv_offset");
-  _uv_scale_location = _program.get_location("u_uv_scale");
   _projection_location = _program.get_location("u_projection");
   _view_location = _program.get_location("u_view");
 

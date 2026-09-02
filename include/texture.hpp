@@ -11,7 +11,7 @@ class Texture {
     Texture(Texture&&) noexcept;
     Texture& operator=(Texture&&) = delete;
 
-    void bind(GLuint unit = 0) const;
+    void bind() const;
 
     const glm::vec2& get_size() const { return _size; }
     float get_width() const { return _size.x; }

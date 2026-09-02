@@ -3,17 +3,17 @@
 layout (location = 0) in vec3 in_position;
 layout (location = 1) in vec3 in_normal;
 layout (location = 2) in vec2 in_uv;
+layout (location = 3) in vec2 in_instance_position;
+layout (location = 4) in vec2 in_instance_size;
+layout (location = 5) in vec2 in_instance_uv_offset;
+layout (location = 6) in vec2 in_instance_uv_scale;
 
-uniform vec2 u_position;
-uniform vec2 u_size;
-uniform vec2 u_uv_offset;
-uniform vec2 u_uv_scale;
 uniform mat4 u_projection;
 uniform mat4 u_view;
 
 out vec2 uv;
 
 void main() {
-  uv = in_uv * u_uv_scale + u_uv_offset;
-  gl_Position = u_projection * u_view * vec4(in_position.xy * u_size + u_position, 0.0, 1.0);
+  uv = in_uv * in_instance_uv_scale + in_instance_uv_offset;
+  gl_Position = u_projection * u_view * vec4(in_position.xy * in_instance_size + in_instance_position, in_position.z, 1.0);
 }

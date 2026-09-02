@@ -15,12 +15,16 @@ class Camera {
     void update();
 
     void move(const glm::vec2& position) { _position += position * Time::instance().get_fps(); }
+    void zoom(const float zoom) { _zoom = glm::clamp(_zoom * glm::exp(zoom), 0.1f, 10.0f); }
+
     const glm::vec2& get_position() const { return _position; }
+    float get_zoom() const { return _zoom; }
     const glm::mat4& get_projection() const { return _projection; }
     const glm::mat4& get_view() const { return _view; }
 
   private:
     glm::vec2 _position{0.0f};
+    float _zoom{1.0f};
     glm::mat4 _projection{0};
     glm::mat4 _view{0};
 

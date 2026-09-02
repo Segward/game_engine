@@ -11,6 +11,8 @@ void Renderer::render() {
   glClear(GL_COLOR_BUFFER_BIT);
 
   _camera.update();
+  
+  _quad.use_shader_program();
   _quad.set_projection(_camera.get_projection());
   _quad.set_view(_camera.get_view());
 

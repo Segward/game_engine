@@ -3,6 +3,7 @@
 
 #include <store.hpp>
 #include <object.hpp>
+#include <texture.hpp>
 #include <quad.hpp>
 #include <window.hpp>
 
@@ -20,8 +21,11 @@ class World {
 
   private:
     Store<Object>& _object_store{Store<Object>::instance()};
+    Store<Texture>& _texture_store{Store<Texture>::instance()};
     Quad& _quad{Quad::instance()};
     Window& _window{Window::instance()};
+
+    std::vector<std::vector<Instance>> _batches;
 
     World() = default;
 };

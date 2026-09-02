@@ -6,17 +6,25 @@ World& World::instance() {
 }
 
 void World::draw() {
+  _batches.resize(_texture_store.get_all().size());
+  for (std::vector<Instance>& batch : _batches) batch.clear();
+
   for (const Object& object : _object_store.get_all()) {
     const Sprite& sprite = object.get_sprite();
-    sprite.get_texture().bind();
-    _quad.set_uv_offset(sprite.get_uv_offset());
-    _quad.set_uv_scale(sprite.get_uv_scale());
-    _quad.draw(object.get_position(), object.get_size());
+    _batches[sprite.get_texture_id()].push_back({object.get_position(), object.get_size(), sprite.get_uv_offset(), sprite.get_uv_scale()});
+  }
+
+  for (size_t texture_id = 0; texture_id < _batches.size(); texture_id++) {
+    const std::vector<Instance>& batch = _batches[texture_id];
+    if (batch.empty()) continue;
+
+    _texture_store.get(static_cast<int>(texture_id)).bind();
+    _quad.draw(batch);
   }
 }
 
 void World::generate() {
-  for (int x = -100; x <= 100; x++) {
+  for (int x = -500; x <= 500; x++) {
     float wave = std::sin(x * 0.2f) * 150.0f;
     float offset = std::rand() % 101 - 50; 
     for (int y = -10; y * 50.0f <= wave + offset; y++) {

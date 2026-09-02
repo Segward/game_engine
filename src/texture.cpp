@@ -34,7 +34,7 @@ Texture::Texture(Texture&& other) noexcept : _handle(other._handle), _size(other
   other._handle = 0; 
 }
 
-void Texture::bind(GLuint unit) const {
-  glActiveTexture(GL_TEXTURE0 + unit);
+void Texture::bind() const {
+  glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, _handle);
 }

@@ -9,8 +9,8 @@ Camera& Camera::instance() {
 
 void Camera::update() {
   Window& window = Window::instance();
-  float half_width = window.get_width() * 0.5f;
-  float half_height = window.get_height() * 0.5f;
+  float half_width = window.get_width() * 0.5f / _zoom;
+  float half_height = window.get_height() * 0.5f / _zoom;
 
   _projection = glm::ortho(-half_width, half_width, -half_height, half_height);
   _view = glm::translate(glm::mat4(1.0f), glm::vec3(-_position, 0.0f));
