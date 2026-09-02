@@ -1,4 +1,5 @@
 #include <world.hpp>
+#include <camera.hpp>
 
 namespace {
   float get_terrain_height(int x) {
@@ -7,7 +8,7 @@ namespace {
     float small = std::sin(x * 0.11f) * 30.0f;
     float bumps = std::sin(x * 0.25f) * 10.0f;
     float random = std::rand() % 31 - 15.0f;
-    return large + medium + small + bumps + random;
+    return (large + medium + small + bumps + random) / pixels_per_object;
   }
 }
 
@@ -36,9 +37,8 @@ void World::draw() {
 
 void World::generate() {
   for (int x = -1000; x <= 1000; x++) {
-    for (int y = -20; y * 50.0f <= get_terrain_height(x); y++) {
-      glm::vec2 position = {x * 50, y * 50};
-      _object_store.emplace_back(3, position, glm::vec2{50.0f, 50.0f});
-    }
+    float height = get_terrain_height(x);
+    for (int y = -20; y <= height; y++)
+      _object_store.emplace_back(3, glm::vec2{x, y}, glm::vec2{1.0f, 1.0f});
   }
 }

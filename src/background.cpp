@@ -17,5 +17,5 @@ void Background::draw() {
   glm::vec2 uv_scale = window_size / (texture_size * scale);
   glm::vec2 uv_offset = (1.0f - uv_scale) / 2.0f;
 
-  _quad.draw({{_camera.get_position(), window_size / _camera.get_zoom(), uv_offset, uv_scale}});
+  _quad.draw({{_camera.get_position(), window_size / _camera.get_zoom() / pixels_per_object, uv_offset, uv_scale}});
 }

@@ -13,7 +13,6 @@ class Time {
     void update();
 
     float get_delta() const { return _delta; }
-    float get_fps() const { return 1.0f / _delta; }
 
   private:
     std::chrono::steady_clock::time_point _previous_time{std::chrono::steady_clock::now()};

@@ -3,6 +3,8 @@
 
 #include <time.hpp>
 
+const float pixels_per_object = 50.0f;
+
 class Camera {
   public:
     static Camera& instance();
@@ -14,8 +16,8 @@ class Camera {
 
     void update();
 
-    void move(const glm::vec2& position) { _position += position * Time::instance().get_fps(); }
-    void zoom(const float zoom) { _zoom = glm::clamp(_zoom * glm::exp(zoom), 0.01f, 10.0f); }
+    void move(const glm::vec2& velocity) { _position += velocity / pixels_per_object * Time::instance().get_delta(); }
+    void zoom(const float zoom) { _zoom = glm::clamp(_zoom * glm::exp(zoom * Time::instance().get_delta()), 0.01f, 10.0f); }
 
     const glm::vec2& get_position() const { return _position; }
     float get_zoom() const { return _zoom; }
