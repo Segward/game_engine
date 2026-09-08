@@ -1,5 +1,4 @@
 #include <init.hpp>
-#include <load.hpp>
 #include <window.hpp>
 #include <controller.hpp>
 #include <renderer.hpp>
@@ -14,8 +13,8 @@ int main() {
     Controller& controller = Controller::instance();
     Renderer& renderer = Renderer::instance();
 
-    load::textures();
-    load::sprites();
+    init::textures();
+    init::sprites();
 
     World::instance().generate();
 

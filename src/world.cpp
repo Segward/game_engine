@@ -39,6 +39,6 @@ void World::generate() {
   for (int x = -1000; x <= 1000; x++) {
     float height = get_terrain_height(x);
     for (int y = -20; y <= height; y++)
-      _object_store.emplace_back(3, glm::vec2{x, y}, glm::vec2{1.0f, 1.0f});
+      _object_store.emplace_back(1, glm::vec2{x, y}, glm::vec2{1.0f, 1.0f});
   }
 }

@@ -32,6 +32,7 @@ class Mesh {
     GLuint _vbo{0};
     GLuint _ebo{0};
     GLuint _ibo{0};
+
     GLsizei _index_count{0};
     GLsizei _instances_count{0};
     GLsizeiptr _instances_capacity{0};
