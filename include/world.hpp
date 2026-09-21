@@ -18,6 +18,7 @@ class World {
     World(World&&) = delete;
     World& operator=(World&&) = delete;
 
+    void update();
     void draw();
     void generate();
 
@@ -29,8 +30,14 @@ class World {
 
     std::vector<std::vector<Instance>> _batches;
     std::unordered_map<glm::ivec2, Chunk> _chunks;
+    std::unordered_set<glm::ivec2> _active_chunks;
+
+    glm::ivec2 _min_chunk_position;
+    glm::ivec2 _max_chunk_position;
 
     World() = default;
+
+    bool is_chunk_visible(const glm::ivec2& chunk_position) const;
 };
 
 #endif

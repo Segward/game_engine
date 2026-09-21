@@ -6,32 +6,42 @@ World& World::instance() {
   return world;
 }
 
-void World::draw() {
-  _batches.resize(_texture_store.get_all().size());
-  for (std::vector<Instance>& batch : _batches) batch.clear();
-
+void World::update() {
   const glm::vec2& camera_position = _camera.get_position();
   const glm::vec2 window_view = _window.get_size() * 0.6f / _camera.get_zoom();
 
-  const glm::ivec2 min_chunk_position = {
+  _min_chunk_position = {
     static_cast<int>(std::floor((camera_position.x - window_view.x) / 500.0f)),
     static_cast<int>(std::floor((camera_position.y - window_view.y) / 500.0f))
   };
 
-  const glm::ivec2 max_chunk_position = {
+  _max_chunk_position = {
     static_cast<int>(std::floor((camera_position.x + window_view.x) / 500.0f)),
     static_cast<int>(std::floor((camera_position.y + window_view.y) / 500.0f))
   };
 
-  for (int x = min_chunk_position.x; x <= max_chunk_position.x; x++) {
-    for (int y = min_chunk_position.y; y <= max_chunk_position.y; y++) {
-      std::unordered_map<glm::ivec2, Chunk>::iterator chunk_iterator = _chunks.find({x, y});
-      if (chunk_iterator == _chunks.end()) continue;
+  std::erase_if(_active_chunks, [this](const glm::ivec2& position) {
+    return !is_chunk_visible(position);
+  });
 
-      for (const Object& object : chunk_iterator->second.get_all()) {
-        const Sprite& sprite = object.get_sprite();
-        _batches[sprite.get_texture_id()].push_back({object.get_position(), object.get_size(), sprite.get_uv_offset(), sprite.get_uv_scale()});
-      }
+  for (int x = _min_chunk_position.x; x <= _max_chunk_position.x; x++) {
+    for (int y = _min_chunk_position.y; y <= _max_chunk_position.y; y++) {
+      _active_chunks.insert({x, y});
+    }
+  }
+}
+
+void World::draw() {
+  _batches.resize(_texture_store.get_all().size());
+  for (std::vector<Instance>& batch : _batches) batch.clear();
+
+  for (const glm::ivec2& chunk_position : _active_chunks) {
+    std::unordered_map<glm::ivec2, Chunk>::iterator chunk_iterator = _chunks.find(chunk_position);
+    if (chunk_iterator == _chunks.end()) continue;
+
+    for (const Object& object : chunk_iterator->second.get_all()) {
+      const Sprite& sprite = object.get_sprite();
+      _batches[sprite.get_texture_id()].push_back({object.get_position(), object.get_size(), sprite.get_uv_offset(), sprite.get_uv_scale()});
     }
   }
 
@@ -58,4 +68,11 @@ void World::generate() {
       chunk.emplace_back(1, position, glm::vec2{50.0f, 50.0f});
     }
   }
+}
+
+bool World::is_chunk_visible(const glm::ivec2& chunk_position) const {
+  return (chunk_position.x <= _max_chunk_position.x && 
+          chunk_position.y <= _max_chunk_position.y && 
+          chunk_position.x >= _min_chunk_position.x &&
+          chunk_position.y >= _min_chunk_position.y);
 }

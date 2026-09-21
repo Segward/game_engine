@@ -10,17 +10,18 @@ int main() {
     Window& window = Window::instance();
     init::glad();
 
+    World& world = World::instance();
     Controller& controller = Controller::instance();
     Renderer& renderer = Renderer::instance();
 
     init::textures();
     init::sprites();
-
-    World::instance().generate();
+    world.generate();
 
     while (!window.should_close()) {
       window.poll_events();
       controller.handle_events();
+      world.update(); 
       renderer.render();
     }
   } catch (const std::exception& exception) {
