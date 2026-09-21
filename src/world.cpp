@@ -10,15 +10,8 @@ void World::update() {
   const glm::vec2& camera_position = _camera.get_position();
   const glm::vec2 window_view = _window.get_size() * 0.6f / _camera.get_zoom();
 
-  _min_chunk_position = {
-    static_cast<int>(std::floor((camera_position.x - window_view.x) / 500.0f)),
-    static_cast<int>(std::floor((camera_position.y - window_view.y) / 500.0f))
-  };
-
-  _max_chunk_position = {
-    static_cast<int>(std::floor((camera_position.x + window_view.x) / 500.0f)),
-    static_cast<int>(std::floor((camera_position.y + window_view.y) / 500.0f))
-  };
+  _min_chunk_position = glm::ivec2(glm::floor((camera_position - window_view) / 500.0f));
+  _max_chunk_position = glm::ivec2(glm::floor((camera_position + window_view) / 500.0f));
 
   std::erase_if(_active_chunks, [this](const glm::ivec2& position) {
     return !is_chunk_visible(position);
