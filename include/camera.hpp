@@ -2,8 +2,7 @@
 #define CAMERA_HPP
 
 #include <time.hpp>
-
-const float pixels_per_object = 50.0f;
+#include <window.hpp>
 
 class Camera {
   public:
@@ -16,8 +15,8 @@ class Camera {
 
     void update();
 
-    void move(const glm::vec2& velocity) { _position += velocity / pixels_per_object * Time::instance().get_delta(); }
-    void zoom(const float zoom) { _zoom = glm::clamp(_zoom * glm::exp(zoom * Time::instance().get_delta()), 0.01f, 10.0f); }
+    void move(const glm::vec2& velocity) { _position += velocity * Time::instance().get_delta(); }
+    void zoom(const float zoom) { _zoom = glm::clamp(_zoom + zoom * Time::instance().get_delta(), 0.1f, 2.0f); }
 
     const glm::vec2& get_position() const { return _position; }
     float get_zoom() const { return _zoom; }
@@ -25,6 +24,8 @@ class Camera {
     const glm::mat4& get_view() const { return _view; }
 
   private:
+    Window& _window{Window::instance()};
+
     glm::vec2 _position{0.0f};
     float _zoom{1.0f};
     glm::mat4 _projection{0};

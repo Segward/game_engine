@@ -6,6 +6,7 @@
 #include <texture.hpp>
 #include <quad.hpp>
 #include <window.hpp>
+#include <camera.hpp>
 
 class World {
   public:
@@ -24,6 +25,7 @@ class World {
     Store<Texture>& _texture_store{Store<Texture>::instance()};
     Quad& _quad{Quad::instance()};
     Window& _window{Window::instance()};
+    Camera& _camera{Camera::instance()};
 
     std::vector<std::vector<Instance>> _batches;
 

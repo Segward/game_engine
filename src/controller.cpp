@@ -2,7 +2,7 @@
 
 namespace {
   float velocity_speed = 500.0f;
-  float zoom_speed = 1.0f;
+  float zoom_speed = 0.1f;
 }
 
 Controller& Controller::instance() {
