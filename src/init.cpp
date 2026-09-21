@@ -33,6 +33,7 @@ void init::textures() {
   Store<Texture>& store = Store<Texture>::instance();
   store.emplace_back("assets/sprite_sheet.png");
   store.emplace_back("assets/background.png");
+  store.emplace_back("assets/white.jpeg");
 }
 
 void init::sprites() {

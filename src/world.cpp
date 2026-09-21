@@ -38,6 +38,17 @@ void World::draw() {
     }
   }
 
+  const float thickness = 1.0f / _camera.get_zoom();
+  std::vector<Instance>& batch = _batches[2];
+
+  for (const glm::ivec2& chunk_position : _active_chunks) {
+    const glm::vec2 origin = glm::vec2(chunk_position) * 500.0f;
+    const glm::vec2 center = origin + 250.0f;
+
+    batch.push_back({{center.x, origin.y}, {500.0f, thickness}, {0.0f, 0.0f}, {1.0f, 1.0f}});
+    batch.push_back({{origin.x, center.y}, {thickness, 500.0f}, {0.0f, 0.0f}, {1.0f, 1.0f}});
+  }
+
   for (size_t texture_id = 0; texture_id < _batches.size(); texture_id++) {
     const std::vector<Instance>& batch = _batches[texture_id];
     if (batch.empty()) continue;
@@ -48,9 +59,9 @@ void World::draw() {
 }
 
 void World::generate() {
-  for (int i = -100; i <= 100; i++) {
-    for (int j = -100; j <= 0; j++) {
-      const glm::vec2 position = {i * 50, j * 50};
+  for (int i = -100; i < 100; i++) {
+    for (int j = -100; j < 0; j++) {
+      const glm::vec2 position = {i * 50 + 25, j * 50 + 25};
 
       const glm::ivec2 chunk_position = {
         static_cast<int>(std::floor(position.x / 500.0f)),
