@@ -45,8 +45,8 @@ void World::draw() {
 }
 
 void World::generate() {
-  for (int i = -1000; i <= 1000; i++) {
-    for (int j = -1000; j <= 1000; j++) {
+  for (int i = -100; i <= 100; i++) {
+    for (int j = -100; j <= 0; j++) {
       const glm::vec2 position = {i * 50, j * 50};
 
       const glm::ivec2 chunk_position = {
