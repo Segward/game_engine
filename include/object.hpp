@@ -6,7 +6,7 @@
 
 class Object {
   public:
-    Object(int sprite_id, const glm::vec2& position, const glm::vec2& size);
+    Object(const int sprite_id, const glm::vec2& position, const glm::vec2& size);
 
     Object(const Object&) = delete;
     Object& operator=(const Object&) = delete;
