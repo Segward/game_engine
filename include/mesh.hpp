@@ -10,6 +10,7 @@ struct Vertex {
 struct Instance {
   glm::vec2 position;
   glm::vec2 size;
+  glm::vec2 rotation;
   glm::vec2 uv_offset;
   glm::vec2 uv_scale;
 };

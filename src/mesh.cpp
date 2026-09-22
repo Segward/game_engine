@@ -38,8 +38,9 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indic
 
   enable_instance_attribute(3, 2, reinterpret_cast<void*>(offsetof(Instance, position)));
   enable_instance_attribute(4, 2, reinterpret_cast<void*>(offsetof(Instance, size)));
-  enable_instance_attribute(5, 2, reinterpret_cast<void*>(offsetof(Instance, uv_offset)));
-  enable_instance_attribute(6, 2, reinterpret_cast<void*>(offsetof(Instance, uv_scale)));
+  enable_instance_attribute(5, 2, reinterpret_cast<void*>(offsetof(Instance, rotation)));
+  enable_instance_attribute(6, 2, reinterpret_cast<void*>(offsetof(Instance, uv_offset)));
+  enable_instance_attribute(7, 2, reinterpret_cast<void*>(offsetof(Instance, uv_scale)));
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);

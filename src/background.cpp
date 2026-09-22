@@ -20,5 +20,5 @@ void Background::draw() {
   glm::vec2 parallax = glm::vec2(camera_position.x, 0) * 0.3f / texture_pixels;
   glm::vec2 uv_offset = (1.0f - uv_scale) / 2.0f + parallax;
 
-  _quad.draw({{_camera.get_position(), window_size / _camera.get_zoom(), uv_offset, uv_scale}});
+  _quad.draw({{_camera.get_position(), window_size / _camera.get_zoom(), {1.0f, 0.0f}, uv_offset, uv_scale}});
 }

@@ -22,6 +22,7 @@ class Store {
 
     T& get(const int id) { return _items[id]; }
     std::vector<T>& get_all() { return _items; }
+    void reserve(const int count) { _items.reserve(count); }
 
   private:
     std::vector<T> _items;

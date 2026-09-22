@@ -27,7 +27,6 @@ int main() {
       time.update();
       controller.handle_events();
       physics.step();
-      world.update();
       renderer.render();
     }
   } catch (const std::exception& exception) {
