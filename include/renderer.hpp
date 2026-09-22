@@ -6,7 +6,6 @@
 #include <background.hpp>
 #include <camera.hpp>
 #include <quad.hpp>
-#include <time.hpp>
 
 class Renderer {
   public:
@@ -25,7 +24,6 @@ class Renderer {
     Background& _background{Background::instance()};
     Camera& _camera{Camera::instance()};
     Quad& _quad{Quad::instance()};
-    Time& _time{Time::instance()};
 
     Renderer() = default;
 };

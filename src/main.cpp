@@ -3,6 +3,8 @@
 #include <controller.hpp>
 #include <renderer.hpp>
 #include <world.hpp>
+#include <physics.hpp>
+#include <time.hpp>
 
 int main() {
   try {
@@ -10,9 +12,11 @@ int main() {
     Window& window = Window::instance();
     init::glad();
 
+    Physics& physics = Physics::instance();
     World& world = World::instance();
     Controller& controller = Controller::instance();
     Renderer& renderer = Renderer::instance();
+    Time& time = Time::instance();
 
     init::textures();
     init::sprites();
@@ -20,8 +24,10 @@ int main() {
 
     while (!window.should_close()) {
       window.poll_events();
+      time.update();
       controller.handle_events();
-      world.update(); 
+      physics.step();
+      world.update();
       renderer.render();
     }
   } catch (const std::exception& exception) {

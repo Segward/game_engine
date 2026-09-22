@@ -1,19 +1,8 @@
 #include <chunk.hpp>
 
-Chunk::Chunk(std::vector<Object>&& objects) : _objects(std::move(objects)) {}
+Chunk::Chunk(std::vector<Block>&& blocks) : _blocks(std::move(blocks)) {}
 
-int Chunk::emplace_back(const int sprite_id, const glm::vec2& position, const glm::vec2& size) {
-  _objects.emplace_back(sprite_id, position, size);
-  return static_cast<int>(_objects.size()) - 1;
-}
-
-void Chunk::load() {
-  if (_loaded) return;
-
-  _loaded = true;
-}
-
-void Chunk::unload() {
-
-  _loaded = false;
+int Chunk::emplace_back(const int sprite_id, const glm::vec2& position, const glm::vec2& size, const b2BodyType type) {
+  _blocks.emplace_back(sprite_id, position, size, type);
+  return static_cast<int>(_blocks.size()) - 1;
 }

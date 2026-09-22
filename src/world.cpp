@@ -32,21 +32,9 @@ void World::draw() {
     std::unordered_map<glm::ivec2, Chunk>::iterator chunk_iterator = _chunks.find(chunk_position);
     if (chunk_iterator == _chunks.end()) continue;
 
-    for (const Object& object : chunk_iterator->second.get_all()) {
-      const Sprite& sprite = object.get_sprite();
-      _batches[sprite.get_texture_id()].push_back({object.get_position(), object.get_size(), sprite.get_uv_offset(), sprite.get_uv_scale()});
+    for (const Block& block : chunk_iterator->second.get_all()) {
+      _batches[block.get_sprite().get_texture_id()].push_back(block.get_instance());
     }
-  }
-
-  const float thickness = 1.0f / _camera.get_zoom();
-  std::vector<Instance>& batch = _batches[2];
-
-  for (const glm::ivec2& chunk_position : _active_chunks) {
-    const glm::vec2 origin = glm::vec2(chunk_position) * 500.0f;
-    const glm::vec2 center = origin + 250.0f;
-
-    batch.push_back({{center.x, origin.y}, {500.0f, thickness}, {0.0f, 0.0f}, {1.0f, 1.0f}});
-    batch.push_back({{origin.x, center.y}, {thickness, 500.0f}, {0.0f, 0.0f}, {1.0f, 1.0f}});
   }
 
   for (size_t texture_id = 0; texture_id < _batches.size(); texture_id++) {
@@ -59,17 +47,29 @@ void World::draw() {
 }
 
 void World::generate() {
-  for (int i = -100; i < 100; i++) {
-    for (int j = -100; j < 0; j++) {
-      const glm::vec2 position = {i * 50 + 25, j * 50 + 25};
+  for (int i = -50; i < 50; i++) {
+    const glm::vec2 position = {i * 50 + 25, 0.0f};
+
+    const glm::ivec2 chunk_position = {
+      static_cast<int>(std::floor(position.x / 500.0f)),
+      static_cast<int>(std::floor(position.y / 500.0f))
+    };
+
+    Chunk& chunk = _chunks.try_emplace(chunk_position, std::vector<Block>{}).first->second;
+    chunk.emplace_back(1, position, glm::vec2{50.0f, 50.0f}, b2_staticBody);
+  }
+
+  for (int i = -5; i < 5; i++) {
+    for (int j = 0; j < 10; j++) {
+      const glm::vec2 position = {i * 60 + 30, j * 60 + 200};
 
       const glm::ivec2 chunk_position = {
         static_cast<int>(std::floor(position.x / 500.0f)),
         static_cast<int>(std::floor(position.y / 500.0f))
       };
 
-      Chunk& chunk = _chunks.try_emplace(chunk_position, std::vector<Object>{}).first->second;
-      chunk.emplace_back(1, position, glm::vec2{50.0f, 50.0f});
+      Chunk& chunk = _chunks.try_emplace(chunk_position, std::vector<Block>{}).first->second;
+      chunk.emplace_back(0, position, glm::vec2{50.0f, 50.0f}, b2_dynamicBody);
     }
   }
 }

@@ -6,8 +6,6 @@ Renderer& Renderer::instance() {
 }
 
 void Renderer::render() {
-  _time.update();
-
   glClear(GL_COLOR_BUFFER_BIT);
 
   _camera.update();
