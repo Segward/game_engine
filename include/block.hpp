@@ -2,6 +2,7 @@
 #define BLOCK_HPP
 
 #include <sprite.hpp>
+#include <assets_manager.hpp>
 #include <mesh.hpp>
 
 class Block {
@@ -15,7 +16,7 @@ class Block {
     Block& operator=(Block&&) = delete;
 
     void set_body_type(const b2BodyType type) { b2Body_SetType(_body_id, type); }
-    Sprite& get_sprite() const { return Store<Sprite>::instance().get(_sprite_id); }
+    Sprite& get_sprite() const { return AssetsManager::instance().get_sprite(_sprite_id); }
     const Instance get_instance() const;
 
   private:

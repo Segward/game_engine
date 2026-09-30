@@ -1,8 +1,7 @@
 #ifndef BACKGROUND_HPP
 #define BACKGROUND_HPP
 
-#include <store.hpp>
-#include <texture.hpp>
+#include <assets_manager.hpp>
 #include <quad.hpp>
 #include <window.hpp>
 #include <camera.hpp>
@@ -19,7 +18,7 @@ class Background {
     void draw();
 
   private:
-    Store<Texture>& _texture_store{Store<Texture>::instance()};
+    AssetsManager& _assets_manager{AssetsManager::instance()};
     Quad& _quad{Quad::instance()};
     Window& _window{Window::instance()};
     Camera& _camera{Camera::instance()};

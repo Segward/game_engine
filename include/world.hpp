@@ -1,8 +1,7 @@
 #ifndef WORLD_HPP
 #define WORLD_HPP
 
-#include <store.hpp>
-#include <texture.hpp>
+#include <assets_manager.hpp>
 #include <quad.hpp>
 #include <physics.hpp>
 
@@ -19,12 +18,11 @@ class World {
     void generate();
 
   private:
-    Store<Texture>& _texture_store{Store<Texture>::instance()};
-    Store<Block>& _block_store{Store<Block>::instance()};
-
+    AssetsManager& _assets_manager{AssetsManager::instance()};
     Quad& _quad{Quad::instance()};
     Physics& _physics{Physics::instance()};
 
+    std::vector<Block> _blocks;
     std::vector<std::vector<Instance>> _batches;
 
     World() = default;

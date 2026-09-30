@@ -1,7 +1,6 @@
 #ifndef SPRITE_HPP
 #define SPRITE_HPP
 
-#include <store.hpp>
 #include <texture.hpp>
 
 class Sprite {
@@ -14,7 +13,7 @@ class Sprite {
     Sprite& operator=(Sprite&&) = delete;
 
     int get_texture_id() const { return _texture_id; }
-    const Texture& get_texture() const { return Store<Texture>::instance().get(_texture_id); }
+    const Texture& get_texture() const;
     glm::vec2 get_uv_offset() const { return _uv_offset; }
     glm::vec2 get_uv_scale() const { return _uv_scale; }
 

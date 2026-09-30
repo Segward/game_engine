@@ -6,7 +6,7 @@ Background& Background::instance() {
 }
 
 void Background::draw() {
-  const Texture& texture = _texture_store.get(1);
+  const Texture& texture = _assets_manager.get_texture(1);
   texture.bind();
 
   const glm::vec2& window_size = _window.get_size();

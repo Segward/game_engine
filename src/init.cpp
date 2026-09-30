@@ -1,8 +1,6 @@
 #include <init.hpp>
 #include <window.hpp>
-#include <store.hpp>
-#include <texture.hpp>
-#include <sprite.hpp>
+#include <assets_manager.hpp>
 
 void init::glfw() {
   if (!glfwInit()) {
@@ -29,13 +27,13 @@ void init::glad() {
 }
 
 void init::textures() {
-  Store<Texture>& store = Store<Texture>::instance();
-  store.emplace_back("assets/sprite_sheet.png");
-  store.emplace_back("assets/background.png");
+  AssetsManager& assets_manager = AssetsManager::instance();
+  assets_manager.emplace_texture_back("assets/sprite_sheet.png");
+  assets_manager.emplace_texture_back("assets/background.png");
 }
 
 void init::sprites() {
-  Store<Sprite>& store = Store<Sprite>::instance();
-  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
-  store.emplace_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  AssetsManager& assets_manager = AssetsManager::instance();
+  assets_manager.emplace_sprite_back(0, glm::vec2{16.0f / 64.0f, 0.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
+  assets_manager.emplace_sprite_back(0, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f}, glm::vec2{16.0f / 64.0f, 16.0f / 64.0f});
 }
