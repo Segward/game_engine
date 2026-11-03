@@ -1,9 +1,9 @@
 #include <controller.hpp>
 
 namespace {
-  float move_speed = 10.0f;
-  float fast_move_speed = 40.0f;
-  float mouse_sensitivity = 0.1f;
+  constexpr float move_speed = 10.0f;
+  constexpr float fast_move_speed = 40.0f;
+  constexpr float mouse_sensitivity = 0.1f;
 }
 
 Controller& Controller::instance() {

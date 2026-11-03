@@ -21,6 +21,7 @@ class Terrain {
 
     Texture _grass_texture{"assets/grass.jpeg"};
     Texture _snow_texture{"assets/snow.jpg"};
+
     std::vector<TriangleInstance> _grass_triangles;
     std::vector<TriangleInstance> _snow_triangles;
 

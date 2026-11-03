@@ -8,7 +8,6 @@
 struct QuadInstance {
   glm::vec2 position;
   glm::vec2 size;
-  glm::vec2 uvs[4];
   glm::vec3 color;
 };
 

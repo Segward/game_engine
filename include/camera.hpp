@@ -27,6 +27,7 @@ class Camera {
     glm::vec3 _position{0.0f, 35.0f, 90.0f};
     float _yaw{-90.0f};
     float _pitch{-25.0f};
+
     glm::mat4 _projection{0};
     glm::mat4 _view{0};
 

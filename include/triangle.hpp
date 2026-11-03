@@ -2,11 +2,11 @@
 #define TRIANGLE_HPP
 
 #include <shader_program.hpp>
+#include <mesh.hpp>
 #include <texture.hpp>
 
 struct TriangleInstance {
   glm::vec3 positions[3];
-  glm::vec2 uvs[3];
   glm::vec3 color;
 };
 
@@ -25,14 +25,12 @@ class Triangle {
 
   private:
     ShaderProgram _program;
-    GLuint _vao{0};
-    GLuint _vbo{0};
+    Mesh _mesh;
 
     GLint _projection_location;
     GLint _view_location;
 
     Triangle();
-    ~Triangle();
 };
 
 #endif
