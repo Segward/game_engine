@@ -1,8 +1,9 @@
 #include <controller.hpp>
 
 namespace {
-  float velocity_speed = 500.0f;
-  float zoom_speed = 0.5f;
+  float move_speed = 10.0f;
+  float fast_move_speed = 40.0f;
+  float mouse_sensitivity = 0.1f;
 }
 
 Controller& Controller::instance() {
@@ -11,11 +12,25 @@ Controller& Controller::instance() {
 }
 
 void Controller::handle_events() {
-  if (_window.key_pressed(GLFW_KEY_W)) _camera.move({0.0f, velocity_speed});
-  if (_window.key_pressed(GLFW_KEY_A)) _camera.move({-velocity_speed, 0.0f});
-  if (_window.key_pressed(GLFW_KEY_S)) _camera.move({0.0f, -velocity_speed});
-  if (_window.key_pressed(GLFW_KEY_D)) _camera.move({velocity_speed, 0.0f});
+  if (_window.key_pressed(GLFW_KEY_ESCAPE)) _window.set_cursor_captured(false);
+  if (!_window.cursor_captured() && _window.mouse_pressed(GLFW_MOUSE_BUTTON_LEFT)) {
+    _window.set_cursor_captured(true);
+    _previous_cursor = _window.get_cursor_position();
+  }
 
-  if (_window.key_pressed(GLFW_KEY_I)) _camera.zoom(zoom_speed);
-  if (_window.key_pressed(GLFW_KEY_O)) _camera.zoom(-zoom_speed);
+  glm::vec2 cursor = _window.get_cursor_position();
+  if (_window.cursor_captured()) _camera.rotate((cursor - _previous_cursor) * mouse_sensitivity);
+  _previous_cursor = cursor;
+
+  glm::vec3 direction{0.0f};
+  if (_window.key_pressed(GLFW_KEY_W)) direction.z += 1.0f;
+  if (_window.key_pressed(GLFW_KEY_S)) direction.z -= 1.0f;
+  if (_window.key_pressed(GLFW_KEY_D)) direction.x += 1.0f;
+  if (_window.key_pressed(GLFW_KEY_A)) direction.x -= 1.0f;
+
+  if (_window.key_pressed(GLFW_KEY_SPACE)) direction.y += 1.0f;
+  if (_window.key_pressed(GLFW_KEY_LEFT_CONTROL)) direction.y -= 1.0f;
+
+  float speed = _window.key_pressed(GLFW_KEY_LEFT_SHIFT) ? fast_move_speed : move_speed;
+  _camera.move(direction * speed);
 }

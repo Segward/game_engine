@@ -1,7 +1,6 @@
 #include <window.hpp>
 #include <init.hpp>
 #include <renderer.hpp>
-#include <physics.hpp>
 
 Window& Window::instance() {
   static Window window;
@@ -40,7 +39,6 @@ void Window::resize_callback(GLFWwindow* handle, int width, int height) {
   glViewport(0, 0, width, height);
 
 #if defined(__APPLE__) || defined(_WIN32)
-  Physics::instance().step();
   Renderer::instance().render();
 #endif
 }

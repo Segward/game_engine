@@ -14,22 +14,23 @@ class Camera {
     Camera& operator=(Camera&&) = delete;
 
     void update();
+    void move(const glm::vec3& direction);
+    void rotate(const glm::vec2& offset);
 
-    void move(const glm::vec2& velocity) { _position += velocity * Time::instance().get_delta(); }
-    void zoom(const float zoom) { _zoom = glm::clamp(_zoom + zoom * Time::instance().get_delta(), 0.1f, 2.0f); }
-
-    const glm::vec2& get_position() const { return _position; }
-    float get_zoom() const { return _zoom; }
+    const glm::vec3& get_position() const { return _position; }
     const glm::mat4& get_projection() const { return _projection; }
     const glm::mat4& get_view() const { return _view; }
 
   private:
     Window& _window{Window::instance()};
 
-    glm::vec2 _position{0.0f};
-    float _zoom{1.0f};
+    glm::vec3 _position{0.0f, 35.0f, 90.0f};
+    float _yaw{-90.0f};
+    float _pitch{-25.0f};
     glm::mat4 _projection{0};
     glm::mat4 _view{0};
+
+    glm::vec3 front() const;
 
     Camera() = default;
 };

@@ -2,7 +2,6 @@
   "name": "game-engine",
   "version-string": "0.1.0",
   "dependencies": [
-    "box2d",
     "glad",
     "glfw3",
     "glm",

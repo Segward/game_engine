@@ -1,7 +1,8 @@
 # game_engine
 
 A small OpenGL game engine sandbox. GLFW window, glad-loaded GL,
-GLM for math, and Box2D for 2D physics.
+and GLM for math. Renders a low-poly 3D terrain
+with a free camera, plus a 2D screen-space layer for GUI.
 
 ## Requirements
 - CMake 3.25+
@@ -39,9 +40,13 @@ Then run the produced binary:
 ./build/game_engine
 ```
 
+## Controls
+- Left click: capture mouse, Escape: release it
+- Mouse: look around
+- W/A/S/D: move, Space/Left Shift: up/down, Left Control: move faster
+
 ## Third party
 - GLFW: window and input.
 - glad: OpenGL function loader.
 - GLM: vector and matrix math.
-- Box2D: 2D rigid-body physics.
 - vcpkg: dependency manager, vendored as a submodule.

@@ -2,10 +2,9 @@
 #define RENDERER_HPP
 
 #include <window.hpp>
-#include <world.hpp>
-#include <background.hpp>
 #include <camera.hpp>
-#include <quad.hpp>
+#include <triangle.hpp>
+#include <terrain.hpp>
 
 class Renderer {
   public:
@@ -20,10 +19,9 @@ class Renderer {
 
   private:
     Window& _window{Window::instance()};
-    World& _world{World::instance()};
-    Background& _background{Background::instance()};
     Camera& _camera{Camera::instance()};
-    Quad& _quad{Quad::instance()};
+    Triangle& _triangle{Triangle::instance()};
+    Terrain& _terrain{Terrain::instance()};
 
     Renderer() = default;
 };

@@ -19,6 +19,8 @@ class Controller {
     Window& _window{Window::instance()};
     Camera& _camera{Camera::instance()};
 
+    glm::vec2 _previous_cursor{0.0f};
+
     Controller() = default;
 };
 

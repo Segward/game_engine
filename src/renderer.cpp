@@ -6,15 +6,13 @@ Renderer& Renderer::instance() {
 }
 
 void Renderer::render() {
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   _camera.update();
-  
-  _quad.set_projection(_camera.get_projection());
-  _quad.set_view(_camera.get_view());
+  _triangle.set_projection(_camera.get_projection());
+  _triangle.set_view(_camera.get_view());
 
-  _background.draw();
-  _world.draw();
+  _terrain.draw();
 
   _window.swap_buffers();
 }

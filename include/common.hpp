@@ -29,7 +29,4 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
-// box2d for physics
-#include <box2d/box2d.h>
-
 #endif

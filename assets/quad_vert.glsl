@@ -1,24 +1,23 @@
 #version 410 core
 
 layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_normal;
-layout (location = 2) in vec2 in_uv;
-layout (location = 3) in vec2 in_instance_position;
-layout (location = 4) in vec2 in_instance_size;
-layout (location = 5) in vec2 in_instance_rotation;
-layout (location = 6) in vec2 in_instance_uv_offset;
-layout (location = 7) in vec2 in_instance_uv_scale;
+layout (location = 2) in vec2 in_instance_position;
+layout (location = 3) in vec2 in_instance_size;
+layout (location = 4) in vec2 in_instance_uv_0;
+layout (location = 5) in vec2 in_instance_uv_1;
+layout (location = 6) in vec2 in_instance_uv_2;
+layout (location = 7) in vec2 in_instance_uv_3;
+layout (location = 8) in vec3 in_instance_color;
 
 uniform mat4 u_projection;
-uniform mat4 u_view;
 
 out vec2 uv;
+out vec3 color;
 
 void main() {
-  uv = in_uv * in_instance_uv_scale + in_instance_uv_offset;
+  vec2 uvs[4] = vec2[4](in_instance_uv_0, in_instance_uv_1, in_instance_uv_2, in_instance_uv_3);
+  uv = uvs[gl_VertexID];
+  color = in_instance_color;
 
-  vec2 scaled = in_position.xy * in_instance_size;
-  vec2 rotated = vec2(scaled.x * in_instance_rotation.x - scaled.y * in_instance_rotation.y, scaled.x * in_instance_rotation.y + scaled.y * in_instance_rotation.x);
-
-  gl_Position = u_projection * u_view * vec4(rotated + in_instance_position, in_position.z, 1.0);
+  gl_Position = u_projection * vec4(in_position.xy * in_instance_size + in_instance_position, 0.0, 1.0);
 }

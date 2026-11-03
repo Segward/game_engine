@@ -7,7 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-Wall -Wextra)
 
-find_package(box2d CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -23,7 +22,6 @@ target_include_directories(
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-  box2d::box2d
   glad::glad
   glfw
   glm::glm
