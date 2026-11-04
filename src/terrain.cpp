@@ -3,7 +3,6 @@
 namespace {
   constexpr int terrain_size = 256;
   constexpr float snow_height = 12.0f;
-  const glm::vec3 light_direction = glm::normalize(glm::vec3{0.4f, 1.0f, 0.3f});
 
   glm::vec3 get_triangle_corner(int x, int z) {
     float distance = glm::length(glm::vec2{x, z} - terrain_size * 0.5f);
@@ -12,9 +11,7 @@ namespace {
   }
 
   TriangleInstance get_triangle_instance(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c) {
-    glm::vec3 normal = glm::normalize(glm::cross(b - a, c - a));
-    float light = 0.4f + 0.6f * std::max(glm::dot(normal, light_direction), 0.0f);
-    return {{a, b, c}, glm::vec3{light}};
+    return {{a, b, c}, glm::vec3{1.0f}};
   }
 }
 

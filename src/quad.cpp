@@ -22,6 +22,7 @@ Quad::Quad() : _program("assets/quad_vert.glsl", "assets/quad_frag.glsl"), _mesh
   _mesh.add_instance_attribute(4, 3, sizeof(QuadInstance), offsetof(QuadInstance, color));
 
   _projection_location = _program.get_location("u_projection");
+
   _program.use();
   _program.set_uniform(_program.get_location("u_texture"), 0);
 }
