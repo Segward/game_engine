@@ -14,6 +14,5 @@ out vec3 color;
 void main() {
   uv = in_uv;
   color = in_instance_color;
-
   gl_Position = u_projection * vec4(in_position.xy * in_instance_size + in_instance_position, 0.0, 1.0);
 }

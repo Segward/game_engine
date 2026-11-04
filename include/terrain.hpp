@@ -1,7 +1,7 @@
 #ifndef TERRAIN_HPP
 #define TERRAIN_HPP
 
-#include <triangle.hpp>
+#include <face.hpp>
 #include <texture.hpp>
 
 class Terrain {
@@ -17,13 +17,15 @@ class Terrain {
     void draw();
 
   private:
-    Triangle& _triangle{Triangle::instance()};
+    Face& _face{Face::instance()};
 
     Texture _grass_texture{"assets/grass.jpeg"};
     Texture _snow_texture{"assets/snow.jpg"};
+    Texture _stone_texture{"assets/stone.png"};
 
-    std::vector<TriangleInstance> _grass_triangles;
-    std::vector<TriangleInstance> _snow_triangles;
+    std::vector<FaceInstance> _grass_faces;
+    std::vector<FaceInstance> _snow_faces;
+    std::vector<FaceInstance> _stone_faces;
 
     Terrain() = default;
 };

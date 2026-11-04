@@ -4,7 +4,6 @@
 #include <renderer.hpp>
 #include <terrain.hpp>
 #include <time.hpp>
-#include <sun.hpp>
 
 int main() {
   try {
@@ -15,7 +14,6 @@ int main() {
     Controller& controller = Controller::instance();
     Renderer& renderer = Renderer::instance();
     Time& time = Time::instance();
-    Sun& sun = Sun::instance();
 
     Terrain& terrain = Terrain::instance();
     terrain.generate();
@@ -23,7 +21,6 @@ int main() {
     while (!window.should_close()) {
       window.poll_events();
       time.update();
-      sun.update();
       controller.handle_events();
       renderer.render();
     }

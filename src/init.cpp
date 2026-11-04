@@ -20,6 +20,7 @@ void init::glad() {
     throw std::runtime_error("glad failed to initialize");
   }
 
+  glClearColor(0.55f, 0.75f, 0.95f, 1.0f);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_BLEND);
   glEnable(GL_DEPTH_TEST);

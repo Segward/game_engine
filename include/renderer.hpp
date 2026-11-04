@@ -3,7 +3,7 @@
 
 #include <window.hpp>
 #include <camera.hpp>
-#include <triangle.hpp>
+#include <face.hpp>
 #include <terrain.hpp>
 
 class Renderer {
@@ -20,7 +20,7 @@ class Renderer {
   private:
     Window& _window{Window::instance()};
     Camera& _camera{Camera::instance()};
-    Triangle& _triangle{Triangle::instance()};
+    Face& _face{Face::instance()};
     Terrain& _terrain{Terrain::instance()};
 
     Renderer() = default;
