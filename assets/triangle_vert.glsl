@@ -11,10 +11,13 @@ uniform mat4 u_view;
 
 out vec2 uv;
 out vec3 color;
+flat out vec3 normal;
 
 void main() {
-  vec3 positions[3] = vec3[3](in_instance_position_0, in_instance_position_1, in_instance_position_2);
   uv = in_uv;
   color = in_instance_color;
+  normal = normalize(cross(in_instance_position_1 - in_instance_position_0, in_instance_position_2 - in_instance_position_0));
+
+  vec3 positions[3] = vec3[3](in_instance_position_0, in_instance_position_1, in_instance_position_2);
   gl_Position = u_projection * u_view * vec4(positions[gl_VertexID], 1.0);
 }

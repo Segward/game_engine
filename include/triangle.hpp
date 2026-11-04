@@ -4,6 +4,7 @@
 #include <shader_program.hpp>
 #include <mesh.hpp>
 #include <texture.hpp>
+#include <sun.hpp>
 
 struct TriangleInstance {
   glm::vec3 positions[3];
@@ -24,11 +25,16 @@ class Triangle {
     void set_view(const glm::mat4& view) { _program.use(); _program.set_uniform(_view_location, view); }
 
   private:
+    Sun& _sun{Sun::instance()};
+
     ShaderProgram _program;
     Mesh _mesh;
 
     GLint _projection_location;
     GLint _view_location;
+    GLint _sun_direction_location;
+    GLint _sun_color_location;
+    GLint _ambient_location;
 
     Triangle();
 };
